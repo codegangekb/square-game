@@ -24,7 +24,7 @@ export class Game {
 
     constructor(public config: Config) {
         this.system = new Collisions();
-        this.player = new Player(new Transform(new Vector(1850, 1250), 0), this);
+        this.player = new Player(new Transform(new Vector(4400, 950), 0), this);
         this.room = {
             width: config.world.width,
             height: config.world.height,

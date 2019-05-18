@@ -50,6 +50,20 @@ export const WALLS_LIST = (() => {
         );
     }
 
+    const list_top = [{
+        x: WALL_X + 125 ,
+        y: WALL_START - 14,
+        rotate: 0.039
+    }];
+
+    for (let i = 0; i < 16; i++) {
+        list_top.push({
+            x: list_top[i].x + 119.5,
+            y: list_top[i].y + 3.6,
+            rotate: 0.039
+        });
+    }
+
     const list_bottom_first = [{
         x: WALL_X,
         y: list_left[list_left.length - 1].y + 140,
@@ -58,25 +72,53 @@ export const WALLS_LIST = (() => {
 
     for (let i = 0; i < 9; i++) {
         list_bottom_first.push({
-            x: list_bottom_first[i].x + 115,
-            y: list_bottom_first[i].y + 25,
+            x: list_bottom_first[i].x + 116,
+            y: list_bottom_first[i].y + 26,
             rotate: Math.PI * 1.07
         })
     }
 
     const list_bottom_second = [{
-        x: list_bottom_first[list_bottom_first.length - 1].x + 140,
-        y: list_bottom_first[list_left.length - 1].y + 140,
-        rotate: Math.PI * 1.1
+        x: list_bottom_first[list_bottom_first.length - 1].x + 114,
+        y: list_bottom_first[list_left.length - 1].y + 154,
+        rotate: Math.PI * 0.95
     }];
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 2; i++) {
         list_bottom_second.push({
-            x: list_bottom_first[i].x + 115,
-            y: list_bottom_first[i].y + 25,
-            rotate: Math.PI * 1.1
+            x: list_bottom_second[i].x + 118,
+            y: list_bottom_second[i].y - 18,
+            rotate: Math.PI * 0.95
         })
     }
+
+    const list_bottom_third = [{
+        x: list_bottom_second[list_bottom_second.length - 1].x + 150,
+        y: list_bottom_second[list_bottom_second.length - 1].y - 30,
+        rotate: Math.PI * 0.74
+    }];
+
+    for (let i = 0; i < 5; i++) {
+        list_bottom_third.push({
+            x: list_bottom_third[i].x + 82,
+            y: list_bottom_third[i].y - 84,
+            rotate: Math.PI * 0.75
+        })
+    }
+
+    const list_right = [{
+        x: list_bottom_third[list_bottom_third.length - 1].x + 96,
+        y: list_bottom_third[list_bottom_third.length - 1].y - 220,
+        rotate: Math.PI * 1.5
+    },
+    {
+        x: list_bottom_third[list_bottom_third.length - 1].x + 96,
+        y: list_bottom_third[list_bottom_third.length - 1].y - 333,
+        rotate: Math.PI * 1.5
+    }];
+
+
+    console.log(list_right);
 
     // for(let i = 0; i < 3; i++) {
     //     list_left.push(
@@ -87,5 +129,5 @@ export const WALLS_LIST = (() => {
     //     );
     // }
 
-    return list_left.concat(list_bottom_first);
+    return list_left.concat(list_bottom_first).concat(list_bottom_second).concat(list_bottom_third).concat(list_right).concat(list_top);
 })();

@@ -19,7 +19,7 @@ class PlayerDrawer extends Drawer {
 }
 
 export class Player extends GameObject {
-    speed: number = 200;
+    speed: number = 400;
 
     constructor(transform: Transform, private game: Game) {
         super(transform, new PlayerDrawer(transform),
