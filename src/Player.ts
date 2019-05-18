@@ -35,7 +35,7 @@ type Tuple = [number, number];
 
 export class PlayerData {
     size: number = 50; // size of body
-    speed: number = 50;
+    speed: number = 200;
     direction: Vector = Vector.zero();
 
     static directions: Record<string, Tuple> = {
@@ -88,6 +88,7 @@ export class PlayerData {
 
     move(to: Vector, dt: number = 1) {
         this.position = this.position.add(to.multiple(this.speed).multiple(dt));
+        console.log(this.position);
     }
 
     update(dt: number) {
