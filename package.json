@@ -9,18 +9,18 @@
     "test": "ts-mocha -p tsconfig.json tests/**/*.ts"
   },
   "devDependencies": {
-    "@types/expect": "^1.20.3",
-    "@types/mocha": "^5.2.5",
-    "css-loader": "^2.0.0",
-    "expect": "^23.6.0",
-    "html-webpack-plugin": "^3.2.0",
-    "mocha": "^5.2.0",
-    "style-loader": "^0.23.1",
-    "ts-loader": "^5.3.1",
-    "ts-mocha": "^2.0.0",
-    "typescript": "^3.2.2",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "@types/expect": "1.20.3",
+    "@types/mocha": "5.2.5",
+    "css-loader": "2.0.0",
+    "expect": "23.6.0",
+    "html-webpack-plugin": "3.2.0",
+    "mocha": "5.2.0",
+    "style-loader": "0.23.1",
+    "ts-loader": "5.3.1",
+    "ts-mocha": "2.0.0",
+    "typescript": "3.2.2",
+    "webpack": "4.27.1",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.11"
   }
 }
