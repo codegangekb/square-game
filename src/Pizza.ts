@@ -15,7 +15,7 @@ export class PizzaRenderer {
         ctx.rotate(this.data.look);
         const pizzaImg = new Image();
         pizzaImg.src = 'public/pizza.svg';
-        ctx.drawImage(pizzaImg, -30, -30, 60, 60);
+        ctx.drawImage(pizzaImg, -15, -15, 30, 30);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }

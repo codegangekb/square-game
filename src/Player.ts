@@ -19,7 +19,7 @@ export class PlayerRenderer {
         // ctx.fillStyle = this.fill;
         const playerImg = new Image();
         playerImg.src = 'public/player.svg';
-        ctx.drawImage(playerImg, -31, -42, 52, 75);
+        ctx.drawImage(playerImg, -25, -32, 52, 63);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
