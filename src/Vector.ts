@@ -17,4 +17,16 @@ export class Vector {
     static angle(v1: Vector, v2: Vector): number {
         return Math.atan2(v1.x - v2.x, -(v1.y - v2.y));
     }
+
+    static distance(v1: Vector, v2: Vector) {
+        return Math.sqrt(Math.pow(v1.x - v2.x, 2) + Math.pow(v1.y - v2.y, 2));
+    }
+
+    static clone(v: Vector) {
+        return new Vector(v.x, v.y);
+    }
+
+    static turnAround(v: Vector) {
+        return new Vector(-v.x, -v.y);
+    }
 }

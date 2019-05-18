@@ -1,6 +1,8 @@
 import { Vector } from './Vector';
 import { Config } from './config';
-import { drawCircle } from './utils';
+import { drawCircle, getRandomBeetwen } from './utils';
+import { Game } from './Game';
+import { Pizza } from './Pizza';
 
 
 export class RiotPoliceRenderer {
@@ -12,20 +14,23 @@ export class RiotPoliceRenderer {
     render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
         ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
         ctx.rotate(this.data.look);
-        ctx.fillStyle = this.fill;
-        drawCircle(ctx, 0, 0, this.data.size);
-        drawCircle(
-            ctx,
-            - this.data.size * 0.8,
-            - this.data.size * 0.8,
-            this.data.size * 0.3
-        );
-        drawCircle(
-            ctx,
-            + this.data.size * 0.8,
-            - this.data.size * 0.8,
-            this.data.size * 0.3
-        );
+        const kosmonavtImg = new Image();
+        kosmonavtImg.src = 'public/kosmonavt.svg';
+        ctx.drawImage(kosmonavtImg, -41, -52, 62, 85);
+        // ctx.fillStyle = this.fill;
+        // drawCircle(ctx, 0, 0, this.data.size);
+        // drawCircle(
+        //     ctx,
+        //     - this.data.size * 0.8,
+        //     - this.data.size * 0.8,
+        //     this.data.size * 0.3
+        // );
+        // drawCircle(
+        //     ctx,
+        //     + this.data.size * 0.8,
+        //     - this.data.size * 0.8,
+        //     this.data.size * 0.3
+        // );
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
@@ -44,9 +49,10 @@ type Tuple = [number, number];
 
 export class RiotPoliceData {
     size: number = 25; // size of body
-    speed: number = 3;
-    target: Vector = null;
-
+    speed: number = getRandomBeetwen(0.7, 1);
+    target: Pizza = null;
+    initialPosition: Vector = null;
+    initialLook: number = null;
     static directions: Record<string, Tuple> = {
         87: [0, -1],
         65: [-1, 0],
@@ -58,16 +64,23 @@ export class RiotPoliceData {
 
     get direction(): Vector {
         let vector = Vector.zero();
-
-       if (this.target) {
-           if ( Math.abs(this.target.x - this.position.x) <= 5 || Math.abs(this.target.y - this.position.y) <= 5) {
-           } else { vector = new Vector(this.target.x - this.position.x, this.target.y - this.position.y) }
+        const position = this.target && this.target.data.position || this.initialPosition;
+       // if ( !( Math.abs(position.x - this.position.x) <= 10 || Math.abs(position.y - this.position.y) <= 10)) {
+       if ( !( Math.abs(position.x - this.position.x) <= 10 || Math.abs(position.y - this.position.y) <= 10)) {
+           vector = new Vector(position.x - this.position.x, position.y - this.position.y);
+           this.look = Vector.angle(position, this.position);
+       } else {
+           this.target && this.game.eatPizza(this.target);
+           this.target = null;
+           this.look = this.initialLook;
        }
+
         return vector;
     }
 
-    constructor(public position: Vector = Vector.zero(), public look: number = 0) {
-
+    constructor(public position: Vector = Vector.zero(), public look: number = 0, private game: Game) {
+        this.initialPosition = Vector.clone(this.position);
+        this.initialLook = look;
     }
 
     move(to: Vector, dt: number = 1) {

@@ -1,7 +1,7 @@
 import { Vector } from './Vector';
 import { Config } from './config';
 import { drawCircle, drawTriangle } from './utils';
-
+import uuid from 'uuid';
 
 export class PizzaRenderer {
     private fill = 'brown';
@@ -13,30 +13,16 @@ export class PizzaRenderer {
         ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
 
         ctx.rotate(this.data.look);
-        ctx.fillStyle = this.fill;
-        // drawCircle(ctx, 0, 0, this.data.size);
-        // drawCircle(
-        //     ctx,
-        //     - this.data.size * 0.8,
-        //     - this.data.size * 0.8,
-        //     this.data.size * 0.3
-        // );
-        // drawCircle(
-        //     ctx,
-        //     + this.data.size * 0.8,
-        //     - this.data.size * 0.8,
-        //     this.data.size * 0.3
-        // );
-
-        // ctx.moveTo(75,50);
-        // ctx.lineTo(100,75);
-        // ctx.lineTo(100,25);
-        drawTriangle(ctx, 0, 0, 30, true);
+        const pizzaImg = new Image();
+        pizzaImg.src = 'public/pizza.svg';
+        ctx.drawImage(pizzaImg, -30, -30, 60, 60);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
 
 export class Pizza extends PizzaRenderer {
+    id = uuid();
+    isWaitingToEating = false;
     constructor(data: PizzaData, private game: any) {
         super(data, game.config);
     }

@@ -19,3 +19,7 @@ export function drawTriangle(ctx: CanvasRenderingContext2D, x: number, y: number
         ctx.stroke()
     }
 }
+
+export function getRandomBeetwen(from: number, to: number) {
+    return (Math.random() * to) + from;
+}

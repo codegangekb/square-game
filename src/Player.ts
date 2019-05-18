@@ -16,20 +16,10 @@ export class PlayerRenderer {
     render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
         ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
         ctx.rotate(this.data.look);
-        ctx.fillStyle = this.fill;
-        drawCircle(ctx, 0, 0, this.data.size);
-        drawCircle(
-            ctx,
-            - this.data.size * 0.8,
-            - this.data.size * 0.8,
-            this.data.size * 0.3
-        );
-        drawCircle(
-            ctx,
-            + this.data.size * 0.8,
-            - this.data.size * 0.8,
-            this.data.size * 0.3
-        );
+        // ctx.fillStyle = this.fill;
+        const playerImg = new Image();
+        playerImg.src = 'public/player.svg';
+        ctx.drawImage(playerImg, -31, -42, 52, 75);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
@@ -94,7 +84,6 @@ export class PlayerData {
             const camera: Camera = this.game.camera;
             const v1 = new Vector(e.pageX + camera.xView, e.pageY + camera.yView);
             this.look = Vector.angle(v1, this.position);
-            console.log(`look ${this.look} ${this.position}`);
         })
     }
 
