@@ -5,6 +5,11 @@ import { Map as GameMap } from './Map';
 import { Vector } from './Vector';
 import { Cosmonaut, CosmonautData } from './Cosmonaut';
 import { Pizza, PizzaData } from './Pizza';
+import { Wall } from './Wall';
+import { Transform } from './entities/Transform';
+import { GET_WALL_LIST } from './objects/wall';
+import { GET_TOWN_LIST } from './objects/town';
+import { Town } from './Town';
 
 export class Game {
     player: Player;
@@ -40,6 +45,8 @@ export class Game {
         this.player.render(ctx, this.camera.xView, this.camera.yView);
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
+        this.createWalls(ctx);
+        this.createTowns(ctx);
     }
 
     searchIntersection() {
@@ -112,5 +119,23 @@ export class Game {
         if (this.pizzas.length >= 5) return;
         this.pizzas.push(new Pizza(new PizzaData(new Vector(position.x, position.y)), this));
         this.searchIntersection();
+    }
+
+    createWalls(ctx: CanvasRenderingContext2D) {
+        GET_WALL_LIST().forEach((_wall, i) => {
+            const vector = new Vector(_wall.x, _wall.y);
+            const transform = new Transform(vector, _wall.rotate);
+            const wall = new Wall(transform);
+            wall.render(ctx, this.camera);
+        });
+    }
+
+    createTowns(ctx: CanvasRenderingContext2D) {
+        GET_TOWN_LIST().forEach((_town, i) => {
+            const vector = new Vector(_town.x, _town.y);
+            const transform = new Transform(vector, _town.rotate);
+            const town = new Town(transform);
+            town.render(ctx, this.camera);
+        });
     }
 }
