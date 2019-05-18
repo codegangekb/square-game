@@ -1,0 +1,84 @@
+
+@font-face {
+    font-family: 'Press Start 2P';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/pressstart2p/v6/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body, html {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    font-family: 'Press Start 2P', SansSerif, Arial;
+}
+
+body {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    border: 1px solid black;
+    image-rendering: pixelated;
+}
+
+.game-display {
+    position: relative;
+}
+
+.game-ui-container {
+    pointer-events: none;
+    position: absolute;
+    width: 800px;
+    height: 600px;
+}
+
+.tower-selector-container {
+    pointer-events: all;
+    position: absolute;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px 5px 10px;
+    background: url('/public/images/wall.png') repeat;
+    top: 0;
+    right: 0;
+    width: 145px;
+    height: 600px;
+}
+
+.tower-selector-title {
+    color: gold;
+    opacity: 0.75;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(/public/images/chest.png) no-repeat 10px 10px;
+    background-size: 20px 20px;
+    padding: 10px 0 0 30px ;
+    box-sizing: border-box;
+    width: 145px;
+    text-align: left;
+}
+
+.tower-selector {
+    background: url(/public/images/border.png) no-repeat,rgba(255,255,255,0.7);
+    background-size: 60px 60px;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.tower-selector.active {
+    box-shadow: 0 0 15px gold;
+}
+
+.tower-selector:nth-of-type(2n+1) {
+    margin-right: 15px;
+}
