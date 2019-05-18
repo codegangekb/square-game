@@ -2,9 +2,9 @@ import { Player } from './Player';
 import { Config } from './config';
 import { Camera } from './entities/Camera';
 import { Map as GameMap } from './Map';
-import { Vector } from './Vector';
-import { Cosmonaut, CosmonautData } from './Cosmonaut';
-import { Pizza, PizzaData } from './Pizza';
+import { Vector } from './entities/Vector';
+import { Cosmonaut } from './Cosmonaut';
+import { Pizza } from './Pizza';
 import { Transform } from './entities/Transform';
 
 export class Game {
@@ -27,6 +27,9 @@ export class Game {
 
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
+
+        // @ts-ignore
+        window.game = this;
     }
 
     renderSquare(ctx: CanvasRenderingContext2D) {
@@ -44,18 +47,19 @@ export class Game {
     }
 
     searchIntersection() {
-        const availablePizzas: Map<Pizza, { kosmonavt: Cosmonaut, distance: number }[]> = new Map();
+        const availablePizzas: Map<Pizza, { cosmonaut: Cosmonaut, distance: number }[]> = new Map();
         if (this.pizzas.length) {
             this.pizzas.forEach(pizza => {
-                this.riotPolice.forEach(kosmonavt => {
-                    const distance = Vector.distance(kosmonavt.data.position, pizza.data.position);
-                    if (Vector.distance(kosmonavt.data.position, pizza.data.position) < 800 && !pizza.isWaitingToEating && !kosmonavt.data.target) {
+                this.riotPolice.forEach(cosmonaut => {
+                    const distance = Vector.distance(cosmonaut.transform.position, pizza.transform.position);
+                    if (Vector.distance(cosmonaut.transform.position, pizza.transform.position) < 800 &&
+                        !pizza.isWaitingToEating && !cosmonaut.target) {
                         //
                         //
                         if (availablePizzas.has(pizza)) {
-                            availablePizzas.get(pizza).push({ kosmonavt, distance });
+                            availablePizzas.get(pizza).push({ cosmonaut: cosmonaut, distance });
                         } else {
-                            availablePizzas.set(pizza, [{ kosmonavt, distance }])
+                            availablePizzas.set(pizza, [{ cosmonaut: cosmonaut, distance }])
                         }
                     }
                 });
@@ -63,8 +67,8 @@ export class Game {
             if (availablePizzas.size) {
                 for (let [key, value] of availablePizzas) {
                     const minDistance = value.reduce((min, p) => p.distance < min ? p.distance : min, value[0].distance);
-                    const { kosmonavt } = value.find(kosmonavt => kosmonavt.distance === minDistance);
-                    kosmonavt.data.target = key;
+                    const { cosmonaut } = value.find(cosmonaut => cosmonaut.distance === minDistance);
+                    cosmonaut.target = key;
                     key.isWaitingToEating = true;
                 }
             }
@@ -79,7 +83,7 @@ export class Game {
 
     renderRiotPolice(ctx: CanvasRenderingContext2D) {
         this.riotPolice.forEach((_) => {
-            _.render(ctx, this.camera.xView, this.camera.yView);
+            _.render(ctx, this.camera);
         });
     }
 
@@ -91,13 +95,15 @@ export class Game {
 
     renderPizzas(ctx: CanvasRenderingContext2D) {
         this.pizzas.forEach(_ => {
-            _.render(ctx, this.camera.xView - 10, this.camera.yView - 10);
+            _.render(ctx, this.camera);
         })
     }
 
     createRiotPolice() {
-        Array.from({length: 9}).forEach((_, i) => {
-            this.riotPolice.push(new Cosmonaut(new CosmonautData(new Vector(2150, 900 + 80 * i + 1), Math.PI * 1.5, this), this));
+        Array.from({length: 1}).forEach((_, i) => {
+            const transform = new Transform(new Vector(2150, 900 + 80 * i + 1), Math.PI * 1.5);
+            const cosmonaut = new Cosmonaut(transform, this);
+            this.riotPolice.push(cosmonaut);
         });
     }
 
@@ -111,7 +117,7 @@ export class Game {
 
     createPizzaObject(position: Vector) {
         if (this.pizzas.length >= 5) return;
-        this.pizzas.push(new Pizza(new PizzaData(new Vector(position.x, position.y)), this));
+        this.pizzas.push(new Pizza(new Transform(new Vector(position.x, position.y), 0)));
         this.searchIntersection();
     }
 }

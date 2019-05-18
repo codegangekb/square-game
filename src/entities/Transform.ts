@@ -1,4 +1,4 @@
-import { Vector } from '../Vector';
+import { Vector } from './Vector';
 
 export class Transform {
     constructor(
@@ -21,7 +21,7 @@ export class Transform {
     }
 
     rotate(angle: number) {
-        this._angle += angle;
+        this._angle = angle;
     }
 
     lookAt(vector: Vector) {
@@ -30,5 +30,9 @@ export class Transform {
 
     setPosition(vector: Vector) {
         this._position = vector;
+    }
+
+    static clone(transform: Transform) {
+        return new Transform(Vector.clone(transform.position), transform.angle, transform._scale, transform._size);
     }
 }

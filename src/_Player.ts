@@ -1,7 +1,7 @@
-import { Vector } from './Vector';
+import { Vector } from './entities/Vector';
 import { Config } from './config';
 import { Game } from './Game';
-import { Camera } from './Camera';
+import { Camera } from './entities/Camera';
 
 
 export class PlayerRenderer {

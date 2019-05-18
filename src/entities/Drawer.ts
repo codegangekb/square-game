@@ -18,6 +18,11 @@ export abstract class Drawer {
 
         this.render(ctx);
 
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.arc(0 ,0, 3, 0, Math.PI * 2);
+        ctx.fill();
+
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }

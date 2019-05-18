@@ -3,7 +3,7 @@ import { Transform } from './entities/Transform';
 import { Drawer } from './entities/Drawer';
 import { Tuple } from './utils';
 import { Camera } from './entities/Camera';
-import { Vector } from './Vector';
+import { Vector } from './entities/Vector';
 import { Game } from './Game';
 
 
@@ -11,7 +11,7 @@ class PlayerDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
         const playerImg = new Image();
         playerImg.src = 'public/player.svg';
-        ctx.drawImage(playerImg, -25, -32, 52, 63);
+        ctx.drawImage(playerImg, -18, -48, 52, 63);
     }
 }
 

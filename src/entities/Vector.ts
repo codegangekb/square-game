@@ -6,8 +6,20 @@ export class Vector {
         return new Vector(this.x + vector.x, this.y + vector.y);
     }
 
+    sub(vector: Vector): Vector {
+        return new Vector(this.x - vector.x, this.y - vector.y);
+    }
+
     multiple(factor: number, yFactor ?: number): Vector {
         return new Vector(this.x * factor, this.y * (yFactor != null ? yFactor : factor));
+    }
+
+    normalize() {
+        const normal = Math.sqrt(this.x * this.x + this.y * this.y);
+        if (!normal) {
+            return this;
+        }
+        return new Vector(this.x / normal, this.y / normal);
     }
 
     static zero() {
