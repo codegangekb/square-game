@@ -1,37 +1,43 @@
 import { Vector } from './Vector';
 import { Config } from './config';
-import { drawCircle } from './utils';
+import { drawCircle, drawTriangle } from './utils';
 
 
-export class RiotPoliceRenderer {
+export class PizzaRenderer {
     private fill = 'brown';
 
-    constructor(public data: RiotPoliceData, private config: Config) {
+    constructor(public data: PizzaData, private config: Config) {
     }
 
     render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
         ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
+
         ctx.rotate(this.data.look);
         ctx.fillStyle = this.fill;
-        drawCircle(ctx, 0, 0, this.data.size);
-        drawCircle(
-            ctx,
-            - this.data.size * 0.8,
-            - this.data.size * 0.8,
-            this.data.size * 0.3
-        );
-        drawCircle(
-            ctx,
-            + this.data.size * 0.8,
-            - this.data.size * 0.8,
-            this.data.size * 0.3
-        );
+        // drawCircle(ctx, 0, 0, this.data.size);
+        // drawCircle(
+        //     ctx,
+        //     - this.data.size * 0.8,
+        //     - this.data.size * 0.8,
+        //     this.data.size * 0.3
+        // );
+        // drawCircle(
+        //     ctx,
+        //     + this.data.size * 0.8,
+        //     - this.data.size * 0.8,
+        //     this.data.size * 0.3
+        // );
+
+        // ctx.moveTo(75,50);
+        // ctx.lineTo(100,75);
+        // ctx.lineTo(100,25);
+        drawTriangle(ctx, 0, 0, 30, true);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
 
-export class RiotPolice extends RiotPoliceRenderer {
-    constructor(data: RiotPoliceData, private game: any) {
+export class Pizza extends PizzaRenderer {
+    constructor(data: PizzaData, private game: any) {
         super(data, game.config);
     }
 
@@ -42,10 +48,9 @@ export class RiotPolice extends RiotPoliceRenderer {
 
 type Tuple = [number, number];
 
-export class RiotPoliceData {
+export class PizzaData {
     size: number = 25; // size of body
-    speed: number = 3;
-    target: Vector = null;
+    speed: number = 200;
 
     static directions: Record<string, Tuple> = {
         87: [0, -1],
@@ -59,10 +64,13 @@ export class RiotPoliceData {
     get direction(): Vector {
         let vector = Vector.zero();
 
-       if (this.target) {
-           if ( Math.abs(this.target.x - this.position.x) <= 5 || Math.abs(this.target.y - this.position.y) <= 5) {
-           } else { vector = new Vector(this.target.x - this.position.x, this.target.y - this.position.y) }
-       }
+        Object.keys(PizzaData.directions).forEach(key => {
+            const isPressed = this.pressedKeys[key] || false;
+            if (isPressed) {
+                vector = vector.add(new Vector(...PizzaData.directions[key]))
+            }
+        });
+
         return vector;
     }
 
