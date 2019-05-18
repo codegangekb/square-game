@@ -46,20 +46,15 @@ export class Camera {
     }
 
     follow(gameObject, xDeadZone, yDeadZone) {
-        console.log(gameObject, xDeadZone, yDeadZone);
         this.followed = gameObject;
         this.xDeadZone = xDeadZone;
         this.yDeadZone = yDeadZone;
     }
 
     update() {
-        console.log('update');
         // keep following the player (or other desired object)
-        console.log(this.followed.position.y, this.followed.position.x, this.yDeadZone, this.axis);
         if (this.followed != null) {
-            console.log('update', 1);
             if (this.axis == AXIS.HORIZONTAL || this.axis == AXIS.BOTH) {
-                console.log('update', 2);
                 // moves camera on horizontal axis based on followed object position
                 if (this.followed.position.x - this.xView + this.xDeadZone > this.wView) {
                     this.xView = this.followed.position.x - (this.wView - this.xDeadZone);
@@ -72,11 +67,9 @@ export class Camera {
             if (this.axis == AXIS.VERTICAL || this.axis == AXIS.BOTH) {
                 // moves camera on vertical axis based on followed object position
                 if (this.followed.position.y - this.yView + this.yDeadZone > this.hView) {
-                    console.log('update', 3);
                     this.yView = this.followed.position.y - (this.hView - this.yDeadZone);
                 }
                 else if (this.followed.position.y - this.yDeadZone < this.yView) {
-                    console.log('update', 4);
                     this.yView = this.followed.position.y - this.yDeadZone;
                 }
             }

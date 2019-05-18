@@ -2,6 +2,7 @@ import { Player, PlayerData } from './Player';
 import { Config } from './config';
 import { Camera } from './Camera';
 import { Map as GameMap } from './Map';
+import { Vector } from './Vector';
 
 export class Game {
     config: Config;
@@ -10,7 +11,7 @@ export class Game {
     room: { width: number, height: number, map: GameMap };
     constructor() {
         this.config = new Config();
-        this.player = new Player(new PlayerData(), this);
+        this.player = new Player(new PlayerData(new Vector(400, 500)), this);
         this.room = {
             width: 5000,
             height: 3000,
@@ -25,11 +26,8 @@ export class Game {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        console.log(this.camera.xView);
         this.room.map.draw(ctx, this.camera.xView, this.camera.yView);
         this.player.render(ctx, this.camera.xView, this.camera.yView);
-        // ctx.rect(20, 20, 150, 100);
-        // ctx.stroke();
     }
 
     update(dt: number) {

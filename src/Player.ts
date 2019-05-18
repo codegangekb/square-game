@@ -10,13 +10,22 @@ export class PlayerRenderer {
     }
 
     render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
-        const { game } = this.config;
-        // ctx.translate(game.width / 2, game.height / 2);
+        ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
         ctx.rotate(this.data.look);
         ctx.fillStyle = this.fill;
-        drawCircle(ctx, this.data.position.x - xView, this.data.position.y - yView, this.data.size);
-        drawCircle(ctx, this.data.position.x - this.data.size * 0.8 - xView, this.data.position.y - this.data.size * 0.8 - yView, this.data.size * 0.3);
-        drawCircle(ctx, this.data.position.x + this.data.size * 0.8 - xView, this.data.position.y - this.data.size * 0.8 - yView, this.data.size * 0.3);
+        drawCircle(ctx, 0, 0, this.data.size);
+        drawCircle(
+            ctx,
+            - this.data.size * 0.8,
+            - this.data.size * 0.8,
+            this.data.size * 0.3
+        );
+        drawCircle(
+            ctx,
+            + this.data.size * 0.8,
+            - this.data.size * 0.8,
+            this.data.size * 0.3
+        );
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
@@ -72,19 +81,10 @@ export class PlayerData {
 
         const canvas = document.getElementById('display');
         canvas.addEventListener('mousemove', (e: MouseEvent) => {
-            const angle = this.position.x;
-            console.log(e.layerY);
-            console.log(e.layerX);
+            this.look = Math.atan2(e.pageX - this.position.x, -(e.pageY - this.position.y));
+            console.log(`look ${this.look} ${this.position}`);
         })
-    }
-
-    rotate(on: number) {
-        this.look += on;
-    }
-
-    rotateTo(angle: number) {
-        this.look = angle;
-    }
+    }s
 
     move(to: Vector, dt: number = 1) {
         this.position = this.position.add(to.multiple(this.speed).multiple(dt));
