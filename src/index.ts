@@ -1,14 +1,16 @@
 import './style.css';
 import { Game } from './Game';
-import { Camera } from './Camera';
+import { Config } from './config';
 
 const canvas = document.createElement('canvas');
 canvas.id = 'display';
 document.body.style.backgroundColor = "#303030";
 
+const config = new Config();
 
-canvas.width = 1024;
-canvas.height = 768;
+canvas.width = config.game.width;
+canvas.height = config.game.height;
+
 canvas.classList.add('game-display');
 
 
@@ -19,7 +21,7 @@ if (ctx == null) {
 
 document.body.appendChild(canvas);
 
-const game: Game = new Game();
+const game: Game = new Game(config);
 
 (function init() {
 

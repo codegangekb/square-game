@@ -4,12 +4,10 @@ import { Camera } from './Camera';
 import { Map as GameMap } from './Map';
 
 export class Game {
-    config: Config;
     player: Player;
     camera: Camera;
     room: { width: number, height: number, map: GameMap };
-    constructor() {
-        this.config = new Config();
+    constructor(public config: Config) {
         this.player = new Player(new PlayerData(), this);
         this.room = {
             width: 5000,

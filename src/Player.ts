@@ -34,7 +34,7 @@ export class Player extends PlayerRenderer {
 type Tuple = [number, number];
 
 export class PlayerData {
-    size: number = 50; // size of body
+    size: number = 20; // size of body
     speed: number = 200;
 
     static directions: Record<string, Tuple> = {
