@@ -26,6 +26,7 @@ const game: Game = new Game();
 let time = Date.now();
 
 (function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     const now = Date.now();
     const dt = now - time;
     time = now;

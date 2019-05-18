@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --disableHostCheck=true",
     "build": "webpack --mode production",
     "test": "ts-mocha -p tsconfig.json tests/**/*.ts"
   },
