@@ -4,7 +4,7 @@ export class Config {
         height: window.innerHeight,
     };
     world = {
-        width: 5000,
-        height: 3000,
+        width: 4444,
+        height: 2218,
     };
 }

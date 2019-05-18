@@ -7,3 +7,19 @@ export function drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, 
         ctx.stroke()
     }
 }
+
+
+export function drawTriangle(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number, fill: boolean = true) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.arc(x, y, radius, 0, Math.PI / 3);
+    if (fill) {
+        ctx.fill()
+    } else {
+        ctx.stroke()
+    }
+}
+
+export function getRandomBeetwen(from: number, to: number) {
+    return (Math.random() * to) + from;
+}
