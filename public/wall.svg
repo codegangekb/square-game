@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.94 13.4"><defs><style>.cls-1,.cls-2{fill:none;stroke-miterlimit:10;}.cls-1{stroke:#f48667;stroke-width:12.76px;}.cls-2{stroke:#ffcf7b;stroke-width:8.5px;}</style></defs><title>zabor_v1-</title><g id="Слой_1" data-name="Слой 1"><line class="cls-1" x1="0.19" y1="6.69" x2="51.63" y2="6.69"/><line class="cls-2" x1="0.19" y1="6.69" x2="51.63" y2="6.69"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.94 13.4">
+    <defs>
+        <style>
+            .cls-1,.cls-2{fill:none;stroke-miterlimit:10;}.cls-1{stroke:#f48667;stroke-width:12.76px;}.cls-2{stroke:#ffcf7b;stroke-width:8.5px;}
+        </style>
+    </defs>
+    <title>zabor_v1-</title>
+    <g id="Слой_1" data-name="Слой 1">
+        <line class="cls-1" x1="0.19" y1="6.69" x2="51.63" y2="6.69"/>
+        <line class="cls-2" x1="0.19" y1="6.69" x2="51.63" y2="6.69"/>
+    </g>
+</svg>

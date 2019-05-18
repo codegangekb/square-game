@@ -1,93 +1,54 @@
-import { Vector } from './Vector';
-import { Config } from './config';
-import { drawCircle, getRandomBeetwen } from './utils';
-import { Game } from './Game';
+import { GameObject } from './entities/GameObject';
+import { Drawer } from './entities/Drawer';
+import { Transform } from './entities/Transform';
+import { Vector } from './entities/Vector';
 import { Pizza } from './Pizza';
+import { getRandomBeetwen } from './utils';
 
-
-export class CosmonautRenderer {
-    private fill = 'brown';
-
-    constructor(public data: CosmonautData, private config: Config) {
-    }
-
-    render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
-        ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
-        ctx.rotate(this.data.look);
-        const kosmonavtImg = new Image();
-        kosmonavtImg.src = 'public/kosmonavt.svg';
-        ctx.drawImage(kosmonavtImg, -41, -52, 62, 85);
-        // ctx.fillStyle = this.fill;
-        // drawCircle(ctx, 0, 0, this.data.size);
-        // drawCircle(
-        //     ctx,
-        //     - this.data.size * 0.8,
-        //     - this.data.size * 0.8,
-        //     this.data.size * 0.3
-        // );
-        // drawCircle(
-        //     ctx,
-        //     + this.data.size * 0.8,
-        //     - this.data.size * 0.8,
-        //     this.data.size * 0.3
-        // );
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+class CosmonautDrawer extends Drawer {
+    render(ctx: CanvasRenderingContext2D) {
+        const cosmonautImg = new Image();
+        cosmonautImg.src = 'public/cosmonaut.svg';
+        ctx.drawImage(cosmonautImg, -30, -55, 62, 85);
     }
 }
 
-export class Cosmonaut extends CosmonautRenderer {
-    constructor(data: CosmonautData, private game: any) {
-        super(data, game.config);
+export class Cosmonaut extends GameObject {
+    speed: number = getRandomBeetwen(70, 100);
+    target: GameObject = null;
+    _transform: Transform;
+
+    constructor(transform: Transform, private game) {
+        super(transform, new CosmonautDrawer(transform));
+
+        this._transform = Transform.clone(transform);
+
+        // @ts-ignore
+        window.cosmonaut = this;
     }
-
-    public update(dt: number) {
-        this.data.update(dt);
-    }
-}
-
-type Tuple = [number, number];
-
-export class CosmonautData {
-    size: number = 25; // size of body
-    speed: number = getRandomBeetwen(0.7, 1);
-    target: Pizza = null;
-    initialPosition: Vector = null;
-    initialLook: number = null;
-    static directions: Record<string, Tuple> = {
-        87: [0, -1],
-        65: [-1, 0],
-        83: [0, 1],
-        68: [1, 0],
-    };
-
-    private pressedKeys: Record<string, boolean> = {};
 
     get direction(): Vector {
         let vector = Vector.zero();
-        const position = this.target && this.target.data.position || this.initialPosition;
-       // if ( !( Math.abs(position.x - this.position.x) <= 10 || Math.abs(position.y - this.position.y) <= 10)) {
-       if ( !( Math.abs(position.x - this.position.x) <= 10 || Math.abs(position.y - this.position.y) <= 10)) {
-           vector = new Vector(position.x - this.position.x, position.y - this.position.y);
-           this.look = Vector.angle(position, this.position);
-       } else {
-           this.target && this.game.eatPizza(this.target);
-           this.target = null;
-           this.look = this.initialLook;
-       }
+        const position = this.target ? this.target.transform.position : this._transform.position;
 
-        return vector;
-    }
-
-    constructor(public position: Vector = Vector.zero(), public look: number = 0, private game: Game) {
-        this.initialPosition = Vector.clone(this.position);
-        this.initialLook = look;
-    }
-
-    move(to: Vector, dt: number = 1) {
-        this.position = this.position.add(to.multiple(this.speed).multiple(dt));
+        if (Vector.distance(this.transform.position, position) >= 5) {
+            vector = position.sub(this.transform.position);
+            this.transform.lookAt(position);
+        } else {
+            if (this.target) {
+                this.game.eatPizza(this.target as Pizza);
+                this.target = null;
+            }
+            this.transform.rotate(this._transform.angle);
+        }
+        return vector.normalize();
     }
 
     update(dt: number) {
-        this.move(this.direction, dt);
+        super.update(dt);
+
+        const path = this.direction.multiple(this.speed * dt);
+
+        this.transform.setPosition(this.transform.position.add(path));
     }
 }

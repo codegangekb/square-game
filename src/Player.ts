@@ -1,51 +1,28 @@
-import { Vector } from './Vector';
-import { Config } from './config';
-import { drawCircle } from './utils';
-import { Cosmonaut, CosmonautData } from './Cosmonaut';
+import { GameObject } from './entities/GameObject';
+import { Transform } from './entities/Transform';
+import { Drawer } from './entities/Drawer';
+import { Tuple } from './utils';
+import { Camera } from './entities/Camera';
+import { Vector } from './entities/Vector';
 import { Game } from './Game';
-import doc = Mocha.reporters.doc;
-import { Camera } from './Camera';
 
 
-export class PlayerRenderer {
-    private fill = '#3aebca';
-
-    constructor(public data: PlayerData, private config: Config) {
-    }
-
-    render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
-        ctx.translate(-xView + this.data.position.x, -yView + this.data.position.y);
-        ctx.rotate(this.data.look);
-        // ctx.fillStyle = this.fill;
+class PlayerDrawer extends Drawer {
+    render(ctx: CanvasRenderingContext2D) {
         const playerImg = new Image();
         playerImg.src = 'public/player.svg';
-        ctx.drawImage(playerImg, -25, -32, 52, 63);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.drawImage(playerImg, -18, -48, 52, 63);
     }
 }
 
-export class Player extends PlayerRenderer {
-    constructor(data: PlayerData, private game: Game) {
-        super(data, game.config);
-        document.addEventListener('click', e => {
-            this.createPizza();
-        });
-    }
-
-    public update(dt: number) {
-        this.data.update(dt);
-    }
-
-    createPizza() {
-        this.game.createPizzaObject(this.data.position);
-    }
-}
-
-type Tuple = [number, number];
-
-export class PlayerData {
-    size: number = 20; // size of body
+export class Player extends GameObject {
     speed: number = 200;
+
+    constructor(transform: Transform, private game: Game) {
+        super(transform, new PlayerDrawer(transform));
+
+        this.listen();
+    }
 
     static directions: Record<string, Tuple> = {
         87: [0, -1],
@@ -56,20 +33,8 @@ export class PlayerData {
 
     private pressedKeys: Record<string, boolean> = {};
 
-    get direction(): Vector {
-        let vector = Vector.zero();
 
-        Object.keys(PlayerData.directions).forEach(key => {
-            const isPressed = this.pressedKeys[key] || false;
-            if (isPressed) {
-                vector = vector.add(new Vector(...PlayerData.directions[key]))
-            }
-        });
-
-        return vector;
-    }
-
-    constructor(public position: Vector = Vector.zero(), public look: number = 0, private game) {
+    listen() {
         document.addEventListener('keydown', e => {
             this.pressedKeys[e.keyCode] = true;
         });
@@ -78,20 +43,37 @@ export class PlayerData {
             this.pressedKeys[e.keyCode] = false;
         });
 
-        const canvas = document.getElementById('display');
-        canvas.addEventListener('mousemove', (e: MouseEvent) => {
-            this.look = Math.atan2(e.pageX - this.position.x, -(e.pageY - this.position.y));
+        document.addEventListener('mousemove', (e: MouseEvent) => {
             const camera: Camera = this.game.camera;
             const v1 = new Vector(e.pageX + camera.xView, e.pageY + camera.yView);
-            this.look = Vector.angle(v1, this.position);
-        })
+            this.transform.lookAt(v1);
+        });
+
+        document.addEventListener('click', (e: MouseEvent) => {
+           this.game.createPizzaObject(this.transform.position);
+        });
     }
 
-    move(to: Vector, dt: number = 1) {
-        this.position = this.position.add(to.multiple(this.speed).multiple(dt));
+    get direction(): Vector {
+        let vector = Vector.zero();
+
+        Object.keys(Player.directions).forEach(key => {
+            const isPressed = this.pressedKeys[key] || false;
+            if (isPressed) {
+                vector = vector.add(new Vector(...Player.directions[key]))
+            }
+        });
+
+        return vector;
     }
 
     update(dt: number) {
-        this.move(this.direction, dt);
+        super.update(dt);
+
+        const path = this.direction.multiple(this.speed).multiple(dt);
+
+        this.transform.setPosition(this.transform.position.add(path));
+
     }
 }
+
