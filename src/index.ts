@@ -23,12 +23,12 @@ const game: Game = new Game();
 
 })();
 
-let time = Date.now();
+let time = performance.now();
 
 (function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const now = Date.now();
-    const dt = now - time;
+    const now = performance.now();
+    const dt = (now - time) / 1000;
     time = now;
 
     game.update(dt);
