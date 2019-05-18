@@ -24,7 +24,8 @@ interface Dot {
 
 canvas.onclick = (event: MouseEvent) => {
     const [x, y] = [event.layerX, event.layerY];
-    const arc = arcs.find(a => (x <= a.x - a.radius || x >= a.x + a.radius) && (y <= a.y - a.radius || y >= a.y - a.radius));
+    const arc = arcs.find(a => (x >= a.x - a.radius && x <= a.x + a.radius)
+        && (y >= a.y - a.radius && y <= a.y + a.radius));
     if (arc) {
         arc.radius = arc.radius * 1.1;
     } else {
