@@ -19,7 +19,7 @@ export class Game {
     pizzas: Pizza[] = [];
 
     constructor(public config: Config) {
-        this.player = new Player(new Transform(new Vector(3400, 1550), 0), this);
+        this.player = new Player(new Transform(new Vector(2400, 950), 0), this);
         this.room = {
             width: config.world.width,
             height: config.world.height,
