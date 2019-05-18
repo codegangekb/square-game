@@ -1,6 +1,6 @@
 import { Player, PlayerData } from './Player';
 import { Config } from './config';
-import { Camera } from './Camera';
+import { Camera } from './entities/Camera';
 import { Map as GameMap } from './Map';
 import { Vector } from './Vector';
 import { Cosmonaut, CosmonautData } from './Cosmonaut';
