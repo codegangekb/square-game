@@ -4,6 +4,7 @@ export class Transform {
     constructor(
         private _position: Vector,
         private _angle: number,
+        public collider?: any,
         private _scale?: number,
         private _size?: number
     ) {}
