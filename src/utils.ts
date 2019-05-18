@@ -7,3 +7,5 @@ export function drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, 
         ctx.stroke()
     }
 }
+
+export type Tuple = [number, number];

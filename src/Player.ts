@@ -1,7 +1,7 @@
 import { Vector } from './Vector';
 import { Config } from './config';
 import { drawCircle } from './utils';
-import { Camera } from './Camera';
+import { Camera } from './entities/Camera';
 
 
 export class PlayerRenderer {
@@ -78,12 +78,10 @@ export class PlayerData {
             this.pressedKeys[e.keyCode] = false;
         });
 
-        const canvas = document.getElementById('display');
-        canvas.addEventListener('mousemove', (e: MouseEvent) => {
+        document.addEventListener('mousemove', (e: MouseEvent) => {
             const camera: Camera = this.game.camera;
             const v1 = new Vector(e.pageX + camera.xView, e.pageY + camera.yView);
             this.look = Vector.angle(v1, this.position);
-            console.log(`look ${this.look} ${this.position}`);
         })
     }
 
