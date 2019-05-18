@@ -3,14 +3,14 @@ import { Config } from './config';
 import { Camera } from './Camera';
 import { Map as GameMap } from './Map';
 import { Vector } from './Vector';
-import { RiotPolice, RiotPoliceData } from './RiotPolice';
+import { Cosmonaut, CosmonautData } from './Cosmonaut';
 import { Pizza, PizzaData } from './Pizza';
 
 export class Game {
     player: Player;
     camera: Camera;
     room: { width: number, height: number, map: GameMap };
-    riotPolice: RiotPolice[] = [];
+    riotPolice: Cosmonaut[] = [];
     pizzas: Pizza[] = [];
 
     constructor(public config: Config) {
@@ -43,7 +43,7 @@ export class Game {
     }
 
     searchIntersection() {
-        const availablePizzas: Map<Pizza, { kosmonavt: RiotPolice, distance: number }[]> = new Map();
+        const availablePizzas: Map<Pizza, { kosmonavt: Cosmonaut, distance: number }[]> = new Map();
         if (this.pizzas.length) {
             this.pizzas.forEach(pizza => {
                 this.riotPolice.forEach(kosmonavt => {
@@ -96,7 +96,7 @@ export class Game {
 
     createRiotPolice() {
         Array.from({length: 9}).forEach((_, i) => {
-            this.riotPolice.push(new RiotPolice(new RiotPoliceData(new Vector(2150, 900 + 80 * i + 1), Math.PI * 1.5, this), this));
+            this.riotPolice.push(new Cosmonaut(new CosmonautData(new Vector(2150, 900 + 80 * i + 1), Math.PI * 1.5, this), this));
         });
     }
 

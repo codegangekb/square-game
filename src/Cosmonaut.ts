@@ -5,10 +5,10 @@ import { Game } from './Game';
 import { Pizza } from './Pizza';
 
 
-export class RiotPoliceRenderer {
+export class CosmonautRenderer {
     private fill = 'brown';
 
-    constructor(public data: RiotPoliceData, private config: Config) {
+    constructor(public data: CosmonautData, private config: Config) {
     }
 
     render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
@@ -35,8 +35,8 @@ export class RiotPoliceRenderer {
     }
 }
 
-export class RiotPolice extends RiotPoliceRenderer {
-    constructor(data: RiotPoliceData, private game: any) {
+export class Cosmonaut extends CosmonautRenderer {
+    constructor(data: CosmonautData, private game: any) {
         super(data, game.config);
     }
 
@@ -47,7 +47,7 @@ export class RiotPolice extends RiotPoliceRenderer {
 
 type Tuple = [number, number];
 
-export class RiotPoliceData {
+export class CosmonautData {
     size: number = 25; // size of body
     speed: number = getRandomBeetwen(0.7, 1);
     target: Pizza = null;

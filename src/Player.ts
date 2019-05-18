@@ -1,7 +1,7 @@
 import { Vector } from './Vector';
 import { Config } from './config';
 import { drawCircle } from './utils';
-import { RiotPolice, RiotPoliceData } from './RiotPolice';
+import { Cosmonaut, CosmonautData } from './Cosmonaut';
 import { Game } from './Game';
 import doc = Mocha.reporters.doc;
 import { Camera } from './Camera';
