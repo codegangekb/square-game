@@ -47,7 +47,7 @@ export class PlayerData {
 
     constructor(public position: Vector = Vector.zero(), public look: number = 0) {
         fromEvent(document, 'keypress')
-            .pipe(distinctUntilKeyChanged('key'))
+            .pipe(distinctUntilKeyChanged<KeyboardEvent>('key'))
             .subscribe((e: KeyboardEvent) => {
                 console.log('press');
                 const key = e.key.toLowerCase();
