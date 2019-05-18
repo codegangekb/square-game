@@ -1,10 +1,11 @@
-import { Player, PlayerData } from './Player';
+import { Player } from './Player';
 import { Config } from './config';
 import { Camera } from './entities/Camera';
 import { Map as GameMap } from './Map';
 import { Vector } from './Vector';
 import { Cosmonaut, CosmonautData } from './Cosmonaut';
 import { Pizza, PizzaData } from './Pizza';
+import { Transform } from './entities/Transform';
 
 export class Game {
     player: Player;
@@ -14,7 +15,7 @@ export class Game {
     pizzas: Pizza[] = [];
 
     constructor(public config: Config) {
-        this.player = new Player(new PlayerData(new Vector(1850, 1250), 0, this), this);
+        this.player = new Player(new Transform(new Vector(1850, 1250), 0), this);
         this.room = {
             width: config.world.width,
             height: config.world.height,
@@ -25,7 +26,7 @@ export class Game {
         this.room.map.generate();
 
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
-        this.camera.follow(this.player.data, this.config.game.width / 2, this.config.game.height / 2);
+        this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
     }
 
     renderSquare(ctx: CanvasRenderingContext2D) {
@@ -37,7 +38,7 @@ export class Game {
     render(ctx: CanvasRenderingContext2D) {
         this.renderSquare(ctx);
         // this.room.map.draw(ctx, this.camera.xView, this.camera.yView);
-        this.player.render(ctx, this.camera.xView, this.camera.yView);
+        this.player.render(ctx, this.camera);
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
     }
