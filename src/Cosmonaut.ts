@@ -19,7 +19,8 @@ export class Cosmonaut extends GameObject {
     _transform: Transform;
 
     constructor(transform: Transform, private game) {
-        super(transform, new CosmonautDrawer(transform));
+        super(transform, new CosmonautDrawer(transform),
+            game.system.createCircle(transform.position.x, transform.position.y, 15));
 
         this._transform = Transform.clone(transform);
 
@@ -50,5 +51,8 @@ export class Cosmonaut extends GameObject {
         const path = this.direction.multiple(this.speed * dt);
 
         this.transform.setPosition(this.transform.position.add(path));
+
+        this.collider.x = this.transform.position.x;
+        this.collider.y = this.transform.position.y;
     }
 }

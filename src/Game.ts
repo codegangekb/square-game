@@ -6,6 +6,8 @@ import { Vector } from './entities/Vector';
 import { Cosmonaut } from './Cosmonaut';
 import { Pizza } from './Pizza';
 import { Transform } from './entities/Transform';
+// @ts-ignore
+import Collisions from 'collisions';
 import { Wall } from './Wall';
 import { WALLS_LIST } from './objects/wall';
 import { TOWN_LIST } from './objects/town';
@@ -17,8 +19,10 @@ export class Game {
     room: { width: number, height: number, map: GameMap };
     riotPolice: Cosmonaut[] = [];
     pizzas: Pizza[] = [];
+    system;
 
     constructor(public config: Config) {
+        this.system = new Collisions();
         this.player = new Player(new Transform(new Vector(2400, 950), 0), this);
         this.room = {
             width: config.world.width,
@@ -31,6 +35,7 @@ export class Game {
 
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
+
 
         // @ts-ignore
         window.game = this;
@@ -82,6 +87,8 @@ export class Game {
     }
 
     update(dt: number) {
+        this.system.update();
+
         this.player.update(dt);
         this.updateRiotPolice(dt);
         this.camera.update();

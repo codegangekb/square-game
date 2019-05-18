@@ -8,6 +8,7 @@ export abstract class GameObject {
     protected constructor(
         public transform: Transform,
         public drawer: Drawer,
+        public collider?: any,
         private animation?: Animation
     ) {}
 

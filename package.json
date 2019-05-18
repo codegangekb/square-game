@@ -24,7 +24,10 @@
     "webpack-dev-server": "3.1.11"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.129",
     "@types/uuid": "^3.4.4",
+    "collisions": "^2.0.13",
+    "lodash": "^4.17.11",
     "rxjs": "^6.5.2",
     "uuid": "^3.3.2"
   }

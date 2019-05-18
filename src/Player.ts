@@ -5,6 +5,9 @@ import { Tuple } from './utils';
 import { Camera } from './entities/Camera';
 import { Vector } from './entities/Vector';
 import { Game } from './Game';
+import debounce from 'lodash/debounce';
+// @ts-ignore
+import { Result } from 'collisions';
 
 
 class PlayerDrawer extends Drawer {
@@ -19,7 +22,8 @@ export class Player extends GameObject {
     speed: number = 200;
 
     constructor(transform: Transform, private game: Game) {
-        super(transform, new PlayerDrawer(transform));
+        super(transform, new PlayerDrawer(transform),
+            game.system.createCircle(transform.position.x, transform.position.y, 15));
 
         this.listen();
     }
@@ -73,7 +77,18 @@ export class Player extends GameObject {
         const path = this.direction.multiple(this.speed).multiple(dt);
 
         this.transform.setPosition(this.transform.position.add(path));
+        this.collider.x = this.transform.position.x;
+        this.collider.y = this.transform.position.y;
 
+        this.game.riotPolice.forEach(police => {
+            const result = new Result();
+            if (this.collider.collides(police.collider, result)) {
+                const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y)
+                this.transform.setPosition(
+                    this.transform.position.add(vector)
+                );
+            }
+        })
     }
 }
 
