@@ -8,6 +8,10 @@ import { Pizza } from './Pizza';
 import { Transform } from './entities/Transform';
 // @ts-ignore
 import Collisions from 'collisions';
+import { Wall } from './Wall';
+import { WALLS_LIST } from './objects/wall';
+import { TOWN_LIST } from './objects/town';
+import { Town } from './Town';
 
 export class Game {
     player: Player;
@@ -49,6 +53,8 @@ export class Game {
         this.player.render(ctx, this.camera);
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
+        this.createWalls(ctx);
+        this.createTowns(ctx);
     }
 
     searchIntersection() {
@@ -126,5 +132,23 @@ export class Game {
         if (this.pizzas.length >= 5) return;
         this.pizzas.push(new Pizza(new Transform(new Vector(position.x, position.y), 0)));
         this.searchIntersection();
+    }
+
+    createWalls(ctx: CanvasRenderingContext2D) {
+        WALLS_LIST.forEach((_wall, i) => {
+            const vector = new Vector(_wall.x, _wall.y);
+            const transform = new Transform(vector, _wall.rotate);
+            const wall = new Wall(transform);
+            wall.render(ctx, this.camera);
+        });
+    }
+
+    createTowns(ctx: CanvasRenderingContext2D) {
+        TOWN_LIST.forEach((_town, i) => {
+            const vector = new Vector(_town.x, _town.y);
+            const transform = new Transform(vector, _town.rotate);
+            const town = new Town(transform);
+            town.render(ctx, this.camera);
+        });
     }
 }
