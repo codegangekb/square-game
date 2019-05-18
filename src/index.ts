@@ -1,4 +1,5 @@
 import './style.css';
+import { Game } from './Game';
 
 const canvas = document.createElement('canvas');
 document.body.style.backgroundColor = "#303030";
@@ -16,31 +17,21 @@ if (ctx == null) {
 
 document.body.appendChild(canvas);
 
-interface Dot {
-    x: number;
-    y: number;
-    radius: number;
-}
+const game: Game = new Game();
 
-canvas.onclick = (event: MouseEvent) => {
-    const [x, y] = [event.layerX, event.layerY];
-    const arc = arcs.find(a => (x >= a.x - a.radius && x <= a.x + a.radius)
-        && (y >= a.y - a.radius && y <= a.y + a.radius));
-    if (arc) {
-        arc.radius = arc.radius * 1.1;
-    } else {
-        arcs.push({ x, y, radius: 20 });
-    }
-};
+(function init() {
 
-const arcs: Array<Dot> = [];
+})();
+
+let time = Date.now();
 
 (function loop() {
-    arcs.forEach((arc) => {
-        ctx.beginPath();
-        ctx.fillStyle = '#3aebca';
-        ctx.arc(arc.x, arc.y, arc.radius, 0, Math.PI * 2);
-        ctx.fill();
-    });
+    const now = Date.now();
+    const dt = now - time;
+    time = now;
+
+    game.update(dt);
+    game.render(ctx);
+
     requestAnimationFrame(loop);
 })();
