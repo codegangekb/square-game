@@ -35,7 +35,7 @@ type Tuple = [number, number];
 
 export class PlayerData {
     size: number = 50; // size of body
-    speed: number = 0.1;
+    speed: number = 50;
     direction: Vector = Vector.zero();
 
     static directions: Record<string, Tuple> = {
@@ -58,22 +58,24 @@ export class PlayerData {
                 }
             });
 
-        fromEvent(document, 'keyup').subscribe((e: KeyboardEvent) => {
-            const key = e.key.toLowerCase();
+        fromEvent(document, 'keyup')
+            .pipe(distinctUntilKeyChanged<KeyboardEvent>('key'))
+            .subscribe((e: KeyboardEvent) => {
+                const key = e.key.toLowerCase();
 
-            if (PlayerData.directions[key]) {
-                const map = {
-                    'w': 's',
-                    'a': 'd',
-                    's': 'w',
-                    'd': 'a',
-                };
+                if (PlayerData.directions[key]) {
+                    const map = {
+                        'w': 's',
+                        'a': 'd',
+                        's': 'w',
+                        'd': 'a',
+                    };
 
-                const vector = new Vector(...PlayerData.directions[map[key]]);
-                this.direction = this.direction.add(vector);
-                console.log('change direction up', this.direction, vector);
-            }
-        });
+                    const vector = new Vector(...PlayerData.directions[map[key]]);
+                    this.direction = this.direction.add(vector);
+                    console.log('change direction up', this.direction, vector);
+                }
+            });
     }
 
     rotate(on: number) {
