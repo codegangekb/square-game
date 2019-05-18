@@ -14,11 +14,11 @@ export class Game {
     pizzas: Pizza[] = [];
 
     constructor(public config: Config) {
-        this.player = new Player(new PlayerData(new Vector(400, 500)), this);
+        this.player = new Player(new PlayerData(new Vector(400, 500), 0, this), this);
         this.room = {
-            width: 5000,
-            height: 3000,
-            map: new GameMap(5000, 3000)
+            width: config.world.width,
+            height: config.world.height,
+            map: new GameMap(config.world.width, config.world.height)
         };
 
         this.createRiotPolice();
@@ -26,7 +26,6 @@ export class Game {
 
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.data, this.config.game.width/2, this.config.game.height/2);
-
     }
 
     render(ctx: CanvasRenderingContext2D) {

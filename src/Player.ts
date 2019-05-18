@@ -4,6 +4,7 @@ import { drawCircle } from './utils';
 import { RiotPolice, RiotPoliceData } from './RiotPolice';
 import { Game } from './Game';
 import doc = Mocha.reporters.doc;
+import { Camera } from './Camera';
 
 
 export class PlayerRenderer {
@@ -78,7 +79,7 @@ export class PlayerData {
         return vector;
     }
 
-    constructor(public position: Vector = Vector.zero(), public look: number = 0) {
+    constructor(public position: Vector = Vector.zero(), public look: number = 0, private game) {
         document.addEventListener('keydown', e => {
             this.pressedKeys[e.keyCode] = true;
         });
@@ -90,6 +91,10 @@ export class PlayerData {
         const canvas = document.getElementById('display');
         canvas.addEventListener('mousemove', (e: MouseEvent) => {
             this.look = Math.atan2(e.pageX - this.position.x, -(e.pageY - this.position.y));
+            const camera: Camera = this.game.camera;
+            const v1 = new Vector(e.pageX + camera.xView, e.pageY + camera.yView);
+            this.look = Vector.angle(v1, this.position);
+            console.log(`look ${this.look} ${this.position}`);
         })
     }
 
