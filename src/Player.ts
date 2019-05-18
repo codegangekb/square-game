@@ -1,7 +1,6 @@
 import { Vector } from './Vector';
 import { Config } from './config';
-import { fromEvent } from 'rxjs';
-import { distinctUntilKeyChanged } from 'rxjs/operators';
+import { drawCircle } from './utils';
 
 
 export class PlayerRenderer {
@@ -13,10 +12,11 @@ export class PlayerRenderer {
     render(ctx: CanvasRenderingContext2D): void {
         const { game } = this.config;
         ctx.translate(game.width / 2, game.height / 2);
-        ctx.beginPath();
+        ctx.rotate(this.data.look);
         ctx.fillStyle = this.fill;
-        ctx.arc(this.data.position.x, this.data.position.y, this.data.size, 0, Math.PI * 2);
-        ctx.fill();
+        drawCircle(ctx, this.data.position.x, this.data.position.y, this.data.size);
+        drawCircle(ctx, this.data.position.x - this.data.size * 0.8, this.data.position.y - this.data.size * 0.8, this.data.size * 0.3);
+        drawCircle(ctx, this.data.position.x + this.data.size * 0.8, this.data.position.y - this.data.size * 0.8, this.data.size * 0.3);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
@@ -35,8 +35,7 @@ type Tuple = [number, number];
 
 export class PlayerData {
     size: number = 50; // size of body
-    speed: number = 50;
-    direction: Vector = Vector.zero();
+    speed: number = 200;
 
     static directions: Record<string, Tuple> = {
         'w': [0, -1],
@@ -45,37 +44,38 @@ export class PlayerData {
         'd': [1, 0],
     };
 
+    private pressedKeys: Record<string, boolean> = {};
+
+    get direction(): Vector {
+        let vector = Vector.zero();
+
+        Object.keys(PlayerData.directions).forEach(key => {
+            const isPressed = this.pressedKeys[key] || false;
+            if (isPressed) {
+                vector = vector.add(new Vector(...PlayerData.directions[key]))
+            }
+        });
+
+        return vector;
+    }
+
     constructor(public position: Vector = Vector.zero(), public look: number = 0) {
-        fromEvent(document, 'keypress')
-            .pipe(distinctUntilKeyChanged<KeyboardEvent>('key'))
-            .subscribe((e: KeyboardEvent) => {
-                console.log('press');
-                const key = e.key.toLowerCase();
+        document.addEventListener('keydown', e => {
+            const key = e.key.toLowerCase();
+            this.pressedKeys[key] = true;
+        });
 
-                if (PlayerData.directions[key]) {
-                    const vector = new Vector(...PlayerData.directions[key]);
-                    this.direction = this.direction.add(vector);
-                }
-            });
+        document.addEventListener('keyup', e => {
+            const key = e.key.toLowerCase();
+            this.pressedKeys[key] = false;
+        });
 
-        fromEvent(document, 'keyup')
-            .pipe(distinctUntilKeyChanged<KeyboardEvent>('key'))
-            .subscribe((e: KeyboardEvent) => {
-                const key = e.key.toLowerCase();
-
-                if (PlayerData.directions[key]) {
-                    const map = {
-                        'w': 's',
-                        'a': 'd',
-                        's': 'w',
-                        'd': 'a',
-                    };
-
-                    const vector = new Vector(...PlayerData.directions[map[key]]);
-                    this.direction = this.direction.add(vector);
-                    console.log('change direction up', this.direction, vector);
-                }
-            });
+        const canvas = document.getElementById('display');
+        canvas.addEventListener('mousemove', (e: MouseEvent) => {
+            const angle = this.position.x;
+            console.log(e.layerY);
+            console.log(e.layerX);
+        })
     }
 
     rotate(on: number) {

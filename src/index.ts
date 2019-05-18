@@ -2,6 +2,7 @@ import './style.css';
 import { Game } from './Game';
 
 const canvas = document.createElement('canvas');
+canvas.id = 'display';
 document.body.style.backgroundColor = "#303030";
 
 
