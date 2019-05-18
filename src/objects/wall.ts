@@ -51,10 +51,18 @@ export const WALLS_LIST = (() => {
     }
 
     const list_top = [{
-        x: WALL_X,
-        y: WALL_START - 18,
-        rotate: 0
+        x: WALL_X + 125 ,
+        y: WALL_START - 14,
+        rotate: 0.039
     }];
+
+    for (let i = 0; i < 16; i++) {
+        list_top.push({
+            x: list_top[i].x + 119.5,
+            y: list_top[i].y + 3.6,
+            rotate: 0.039
+        });
+    }
 
     const list_bottom_first = [{
         x: WALL_X,
