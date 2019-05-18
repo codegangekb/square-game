@@ -1,6 +1,7 @@
 import { Vector } from './Vector';
 import { Config } from './config';
 import { drawCircle } from './utils';
+import { Camera } from './Camera';
 
 
 export class PlayerRenderer {
@@ -68,7 +69,7 @@ export class PlayerData {
         return vector;
     }
 
-    constructor(public position: Vector = Vector.zero(), public look: number = 0) {
+    constructor(public position: Vector = Vector.zero(), public look: number = 0, private game) {
         document.addEventListener('keydown', e => {
             const key = e.key.toLowerCase();
             this.pressedKeys[key] = true;
@@ -81,10 +82,12 @@ export class PlayerData {
 
         const canvas = document.getElementById('display');
         canvas.addEventListener('mousemove', (e: MouseEvent) => {
-            this.look = Math.atan2(e.pageX - this.position.x, -(e.pageY - this.position.y));
+            const camera: Camera = this.game.camera;
+            const v1 = new Vector(e.pageX + camera.xView, e.pageY + camera.yView);
+            this.look = Vector.angle(v1, this.position);
             console.log(`look ${this.look} ${this.position}`);
         })
-    }s
+    }
 
     move(to: Vector, dt: number = 1) {
         this.position = this.position.add(to.multiple(this.speed).multiple(dt));

@@ -13,4 +13,8 @@ export class Vector {
     static zero() {
         return new Vector(0, 0)
     }
+
+    static angle(v1: Vector, v2: Vector): number {
+        return Math.atan2(v1.x - v2.x, -(v1.y - v2.y));
+    }
 }
