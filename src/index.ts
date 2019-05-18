@@ -1,5 +1,6 @@
 import './style.css';
 import { Game } from './Game';
+import { Camera } from './Camera';
 
 const canvas = document.createElement('canvas');
 document.body.style.backgroundColor = "#303030";

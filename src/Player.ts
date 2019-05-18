@@ -7,15 +7,15 @@ import { distinctUntilKeyChanged } from 'rxjs/operators';
 export class PlayerRenderer {
     private fill = '#3aebca';
 
-    constructor(protected data: PlayerData, private config: Config) {
+    constructor(public data: PlayerData, private config: Config) {
     }
 
-    render(ctx: CanvasRenderingContext2D): void {
+    render(ctx: CanvasRenderingContext2D, xView: number, yView: number): void {
         const { game } = this.config;
         ctx.translate(game.width / 2, game.height / 2);
         ctx.beginPath();
         ctx.fillStyle = this.fill;
-        ctx.arc(this.data.position.x, this.data.position.y, this.data.size, 0, Math.PI * 2);
+        ctx.arc(this.data.position.x - xView, this.data.position.y - yView, this.data.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
@@ -51,7 +51,7 @@ export class PlayerData {
             .subscribe((e: KeyboardEvent) => {
                 console.log('press');
                 const key = e.key.toLowerCase();
-
+                console.log(key);
                 if (PlayerData.directions[key]) {
                     const vector = new Vector(...PlayerData.directions[key]);
                     this.direction = this.direction.add(vector);
