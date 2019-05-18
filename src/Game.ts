@@ -5,12 +5,11 @@ import { Map as GameMap } from './Map';
 import { Vector } from './Vector';
 
 export class Game {
-    config: Config;
     player: Player;
     camera: Camera;
     room: { width: number, height: number, map: GameMap };
-    constructor() {
-        this.config = new Config();
+
+    constructor(public config: Config) {
         this.player = new Player(new PlayerData(new Vector(400, 500)), this);
         this.room = {
             width: 5000,

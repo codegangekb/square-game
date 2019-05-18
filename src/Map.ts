@@ -19,15 +19,15 @@ export class Map{
         var rows = ~~(this.width/44) + 1;
         var columns = ~~(this.height/44) + 1;
 
-        var color = "red";
+        var color = "black";
         ctx.save();
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "black";
         for (var x = 0, i = 0; i < rows; x+=44, i++) {
             ctx.beginPath();
             for (var y = 0, j=0; j < columns; y+=44, j++) {
-                ctx.rect (x, y, 40, 40);
+                ctx.rect (x, y, 42, 42);
             }
-            color = (color == "red" ? "blue" : "red");
+            color = '#fff';
             ctx.fillStyle = color;
             ctx.fill();
             ctx.closePath();
