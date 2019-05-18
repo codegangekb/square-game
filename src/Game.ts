@@ -20,6 +20,7 @@ export class Game {
     riotPolice: Cosmonaut[] = [];
     pizzas: Pizza[] = [];
     system;
+    walls: Array<Wall>;
 
     constructor(public config: Config) {
         this.system = new Collisions();
@@ -35,6 +36,7 @@ export class Game {
 
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
+        this.createWalls();
 
 
         // @ts-ignore
@@ -53,7 +55,7 @@ export class Game {
         this.player.render(ctx, this.camera);
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
-        this.createWalls(ctx);
+        this.renderWalls(ctx);
         this.createTowns(ctx);
     }
 
@@ -134,13 +136,16 @@ export class Game {
         this.searchIntersection();
     }
 
-    createWalls(ctx: CanvasRenderingContext2D) {
-        WALLS_LIST.forEach((_wall, i) => {
+    createWalls() {
+        this.walls = WALLS_LIST.map((_wall, i) => {
             const vector = new Vector(_wall.x, _wall.y);
             const transform = new Transform(vector, _wall.rotate);
-            const wall = new Wall(transform);
-            wall.render(ctx, this.camera);
+            return new Wall(transform, this);
         });
+    }
+
+    renderWalls(ctx: CanvasRenderingContext2D) {
+        this.walls.forEach(wall => wall.render(ctx, this.camera));
     }
 
     createTowns(ctx: CanvasRenderingContext2D) {
