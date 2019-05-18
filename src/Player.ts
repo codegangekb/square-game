@@ -47,10 +47,10 @@ export class PlayerData {
     speed: number = 200;
 
     static directions: Record<string, Tuple> = {
-        'w': [0, -1],
-        'a': [-1, 0],
-        's': [0, 1],
-        'd': [1, 0],
+        87: [0, -1],
+        65: [-1, 0],
+        83: [0, 1],
+        68: [1, 0],
     };
 
     private pressedKeys: Record<string, boolean> = {};
@@ -70,13 +70,11 @@ export class PlayerData {
 
     constructor(public position: Vector = Vector.zero(), public look: number = 0) {
         document.addEventListener('keydown', e => {
-            const key = e.key.toLowerCase();
-            this.pressedKeys[key] = true;
+            this.pressedKeys[e.keyCode] = true;
         });
 
         document.addEventListener('keyup', e => {
-            const key = e.key.toLowerCase();
-            this.pressedKeys[key] = false;
+            this.pressedKeys[e.keyCode] = false;
         });
 
         const canvas = document.getElementById('display');
