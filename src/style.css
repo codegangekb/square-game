@@ -25,6 +25,7 @@ body {
 canvas {
     border: 1px solid black;
     image-rendering: pixelated;
+    cursor: cell;
 }
 
 .game-display {

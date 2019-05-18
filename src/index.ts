@@ -3,6 +3,7 @@ import { Game } from './Game';
 import { Camera } from './Camera';
 
 const canvas = document.createElement('canvas');
+canvas.id = 'display';
 document.body.style.backgroundColor = "#303030";
 
 

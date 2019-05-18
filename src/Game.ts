@@ -26,8 +26,8 @@ export class Game {
 
     render(ctx: CanvasRenderingContext2D) {
         console.log(this.camera.xView);
-        this.player.render(ctx, this.camera.xView, this.camera.yView);
         this.room.map.draw(ctx, this.camera.xView, this.camera.yView);
+        this.player.render(ctx, this.camera.xView, this.camera.yView);
         // ctx.rect(20, 20, 150, 100);
         // ctx.stroke();
     }
