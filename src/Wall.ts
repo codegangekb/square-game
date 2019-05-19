@@ -17,6 +17,7 @@ class WallDrawer extends Drawer {
         // ctx.drawImage(wallImage, -this.width, -this.height / 2, this.width, this.height,);
 
         if (this.collider) {
+            ctx.rotate(this.transform.angle);
             ctx.translate(
                 -this.transform.position.x ,
                 -this.transform.position.y
@@ -41,8 +42,10 @@ export class Wall extends GameObject {
                 [
                     [0, 0],
                     [-WALL_WIDTH, 0],
-                    [-WALL_WIDTH, +WALL_HEIGHT]
-                ], 0));
+                    // [-WALL_WIDTH, +WALL_HEIGHT],
+                    // [WALL_WIDTH, -WALL_HEIGHT],
+
+                ], transform.angle));
 
         // @ts-ignore
         this.drawer.collider = this.collider;

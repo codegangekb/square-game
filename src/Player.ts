@@ -82,7 +82,6 @@ export class Player extends GameObject {
 
         this.game.riotPolice.forEach(police => {
             const result = new Result();
-            console.log(result);
             if (this.collider.collides(police.collider, result)) {
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
                 this.transform.setPosition(
@@ -93,6 +92,7 @@ export class Player extends GameObject {
 
         this.game.walls.forEach(wall => {
             const result = new Result();
+            // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {
                 console.log(result);
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
