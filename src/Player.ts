@@ -155,6 +155,7 @@ export class Player extends GameObject {
         });
 
         this.game.staticObjects.forEach(_static => {
+            if (_static.offColider) return;
             const result = new Result();
             if (this.collider.collides(_static.static.collider, result)) {
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);

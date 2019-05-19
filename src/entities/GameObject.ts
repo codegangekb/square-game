@@ -9,7 +9,7 @@ export abstract class GameObject {
         public transform: Transform,
         public drawer: Drawer,
         public collider?: any,
-        private animation?: Animation
+        protected animation?: Animation
     ) {}
 
     public render(ctx: CanvasRenderingContext2D, camera: Camera) {

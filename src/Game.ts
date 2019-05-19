@@ -185,6 +185,7 @@ export class Game {
         this.staticObjects.push(new StaticObject('public/ded.svg', 180, 130, 0, new Vector(1895, 1450), this));
         this.staticObjects.push(new StaticObject('public/deva-vesna.svg', 70, 90, 0, new Vector(1895, 1250), this));
         this.staticObjects.push(new StaticObject('public/shahrin.svg', 90, 90, 0, new Vector(1350, 650), this));
+        this.staticObjects.push(new StaticObject('public/titushki.svg', 400, 400, Math.PI * 1.9, new Vector(3550, 1300), this, true));
 
     }
 
