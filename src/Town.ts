@@ -14,7 +14,8 @@ class TownDrawer extends Drawer {
 }
 
 export class Town extends GameObject {
-    constructor(public transform: Transform) {
-        super(transform, new TownDrawer(transform));
+    constructor(public transform: Transform, game) {
+        super(transform, new TownDrawer(transform),
+            game.system.createCircle(transform.position.x, transform.position.y, 20));
     }
 }
