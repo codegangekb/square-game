@@ -14,6 +14,8 @@ import { TOWN_LIST } from './objects/town';
 import { Town } from './Town';
 import { StaticObject } from './StaticObject';
 import { Boss } from './Boss';
+import { House } from './House';
+import { Assets } from './Assets';
 
 export class Game {
     player: Player;
@@ -26,6 +28,9 @@ export class Game {
     towns: Array<Town>;
     staticObjects: StaticObject[] = [];
     boss: Boss;
+    house: House;
+    assets: Assets;
+
     constructor(public config: Config) {
         this.system = new Collisions();
         this.player = new Player(new Transform(new Vector(2350, 1650), 0), this);
@@ -45,20 +50,20 @@ export class Game {
         this.createStatic();
         this.boss = new Boss(new Transform(new Vector(3400, 1300), Math.PI * 1.5), this);
 
-        // @ts-ignore
-        window.game = this;
+        this.house = new House(new Transform(new Vector(3540, 1320), 0), this);
+
+        this.assets = Assets.getInstance();
     }
 
     renderSquare(ctx: CanvasRenderingContext2D) {
-        const img = new Image();
-        img.src = 'public/square.png';
-        ctx.drawImage(img, -this.camera.xView, -this.camera.yView, img.width/1.8, img.height/1.8);
+        ctx.drawImage(this.assets.get('square.svg'), -this.camera.xView, -this.camera.yView, this.config.world.width, this.config.world.height);
     }
 
     render(ctx: CanvasRenderingContext2D) {
         this.renderSquare(ctx);
         // this.room.map.draw(ctx, this.camera.xView, this.camera.yView);
         this.player.render(ctx, this.camera);
+        this.house.render(ctx, this.camera);
         this.boss.render(ctx, this.camera);
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
@@ -98,6 +103,7 @@ export class Game {
 
     update(dt: number) {
         this.system.update();
+        this.house.update(dt);
 
         this.player.update(dt);
         this.boss.update(dt);

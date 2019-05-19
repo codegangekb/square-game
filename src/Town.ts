@@ -7,9 +7,7 @@ class TownDrawer extends Drawer {
     width = TOWN_HEIGHT;
     height = TOWN_HEIGHT;
     render(ctx: CanvasRenderingContext2D) {
-        const townImage = new Image();
-        townImage.src = 'public/town.svg';
-        ctx.drawImage(townImage, -this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.drawImage(this.assets.get('town.svg'), -this.width / 2, -this.height / 2, this.width, this.height);
     }
 }
 

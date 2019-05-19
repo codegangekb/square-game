@@ -1,10 +1,12 @@
 import { Camera } from './Camera';
 import { GameObject } from './GameObject';
 import { Transform } from './Transform';
+import { Assets } from '../Assets';
 
 export abstract class Drawer {
+    protected assets: Assets;
     constructor(protected transform: Transform) {
-
+        this.assets = Assets.getInstance();
     }
 
     protected abstract render(ctx: CanvasRenderingContext2D);

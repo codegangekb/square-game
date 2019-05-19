@@ -11,9 +11,7 @@ import { Result } from 'detect-collisions';
 
 class PlayerDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
-        const playerImg = new Image();
-        playerImg.src = 'public/player.svg';
-        ctx.drawImage(playerImg, -18, -48, 52, 63);
+        ctx.drawImage(this.assets.get('player.svg'), -18, -48, 52, 63);
     }
 }
 

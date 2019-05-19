@@ -5,9 +5,7 @@ import { Drawer } from './entities/Drawer';
 
 export class PizzaDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
-        const pizzaImg = new Image();
-        pizzaImg.src = 'public/pizza.svg';
-        ctx.drawImage(pizzaImg, -15, -15, 30, 30);
+        ctx.drawImage(this.assets.get('pizza.svg'), -15, -15, 30, 30);
     }
 }
 
