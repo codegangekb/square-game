@@ -27,7 +27,8 @@ module.exports = {
     },
     plugins: [
         new HTMLPlugin({
-            meta: {viewport: 'width=device-width, initial-scale=0.5, shrink-to-fit=no'}
+            title: 'За!Сквер',
+            meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),
         new webpack.WatchIgnorePlugin([
             path.join(__dirname, "node_modules")
