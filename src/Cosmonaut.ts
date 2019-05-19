@@ -8,9 +8,7 @@ import { Result } from 'detect-collisions';
 
 class CosmonautDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
-        const cosmonautImg = new Image();
-        cosmonautImg.src = 'public/cosmonaut.svg';
-        ctx.drawImage(cosmonautImg, -30, -55, 62, 85);
+        ctx.drawImage(this.assets.get('cosmonaut.svg'), -30, -55, 62, 85);
     }
 }
 

@@ -12,9 +12,7 @@ class StaticDrawer extends Drawer {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        const townImage = new Image();
-        townImage.src = this.imgPath;
-        ctx.drawImage(townImage, -this.w / 2, -this.h / 2, this.w, this.h);
+        ctx.drawImage(this.assets.get(this.imgPath), -this.w / 2, -this.h / 2, this.w, this.h);
     }
 }
 

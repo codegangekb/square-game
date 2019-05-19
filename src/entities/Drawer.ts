@@ -1,10 +1,12 @@
 import { Camera } from './Camera';
 import { GameObject } from './GameObject';
 import { Transform } from './Transform';
+import { Assets } from '../Assets';
 
 export abstract class Drawer {
+    protected assets: Assets;
     constructor(protected transform: Transform) {
-
+        this.assets = Assets.getInstance();
     }
 
     protected abstract render(ctx: CanvasRenderingContext2D);
@@ -15,7 +17,6 @@ export abstract class Drawer {
             -camera.yView + this.transform.position.y
         );
         ctx.rotate(this.transform.angle);
-
         this.render(ctx);
 
         ctx.beginPath();

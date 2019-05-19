@@ -8,9 +8,7 @@ import { Result } from 'detect-collisions';
 import { Animation as Animal } from './entities/Animation'
 class BossDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
-        const cosmonautImg = new Image();
-        cosmonautImg.src = 'public/boss.svg';
-        ctx.drawImage(cosmonautImg, -30, -55, 62, 85);
+        ctx.drawImage(this.assets.get('boss.svg'), -30, -55, 62, 85);
     }
 }
 
