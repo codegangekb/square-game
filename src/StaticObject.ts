@@ -29,8 +29,6 @@ export class StaticObject {
     constructor(imgPath: string, w: number, h: number, rotate: number, vector: Vector, game, public offColider = false) {
         const transform = new Transform(vector, rotate);
         this.static = new Static(transform, imgPath, w, h, game);
-        // const cosmonaut = new Cosmonaut(transform, this);
-        // this.riotPolice.push(cosmonaut);
     }
 
     render(ctx: CanvasRenderingContext2D, camera: Camera) {

@@ -4,7 +4,8 @@ import { Transform } from './entities/Transform';
 import { Vector } from './entities/Vector';
 import { Pizza } from './Pizza';
 import { getRandomBeetwen } from './utils';
-import { Result } from 'detect-collisions';
+// @ts-ignore
+import { Result } from 'collisions';
 
 class CosmonautDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {

@@ -7,7 +7,7 @@ import { Cosmonaut } from './Cosmonaut';
 import { Pizza } from './Pizza';
 import { Transform } from './entities/Transform';
 // @ts-ignore
-import { Collisions } from 'detect-collisions';
+import { Collisions } from 'collisions';
 import { Wall } from './Wall';
 import { WALLS_LIST } from './objects/wall';
 import { TOWN_LIST } from './objects/town';

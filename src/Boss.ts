@@ -2,7 +2,8 @@ import { GameObject } from './entities/GameObject';
 import { Drawer } from './entities/Drawer';
 import { Transform } from './entities/Transform';
 import { Vector } from './entities/Vector';
-import { Result } from 'detect-collisions';
+// @ts-ignore
+import { Result } from 'collisions';
 import { Animation as Animal } from './entities/Animation'
 
 class BossDrawer extends Drawer {
@@ -37,19 +38,6 @@ export class Boss extends GameObject {
     }
 
     get direction(): Vector {
-        let vector = Vector.zero();
-        // const position = this.target ? this.target.transform.position : this._transform.position;
-        //
-        // if (Vector.distance(this.transform.position, position) >= 5) {
-        //     vector = position.sub(this.transform.position);
-        //     this.transform.lookAt(position);
-        // } else {
-        //     if (this.target) {
-        //         this.game.eatPizza(this.target as Pizza);
-        //         this.target = null;
-        //     }
-        //     this.transform.rotate(this._transform.angle);
-        // }
         if (this.directionVector) {
             return this.directionVector;
         }

@@ -3,9 +3,6 @@ import { Game } from './Game';
 import { Config } from './config';
 import { Assets } from './Assets';
 
-// @ts-ignore
-import nipplejs from 'nipplejs';
-
 const canvas = document.createElement('canvas');
 canvas.id = 'display';
 document.body.style.backgroundColor = "#303030";

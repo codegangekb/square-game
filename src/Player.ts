@@ -6,7 +6,7 @@ import { Camera } from './entities/Camera';
 import { Vector } from './entities/Vector';
 import { Game } from './Game';
 // @ts-ignore
-import { Result } from 'detect-collisions';
+import { Result } from 'collisions';
 
 
 class PlayerDrawer extends Drawer {

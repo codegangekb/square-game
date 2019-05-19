@@ -1,37 +1,5 @@
-import { TOWN_HEIGHT, TOWN_START, WALL_HEIGHT, WALL_START, WALL_WIDTH, WALL_X } from './constants';
+import { WALL_START, WALL_WIDTH, WALL_X } from './constants';
 
-// export const WALLS_LIST = [
-//     {
-//         x: WALL_X,
-//         y: 919,
-//         rotate: Math.PI * 1.5
-//     },
-//     {
-//         x: WALL_X,
-//         y: 1058,
-//         rotate: Math.PI * 1.5
-//     },
-//     {
-//         x: WALL_X,
-//         y: 1205,
-//         rotate: Math.PI * 1.5
-//     },
-//     {
-//         x: WALL_X,
-//         y: 1425,
-//         rotate: Math.PI * 1.5
-//     },
-//     {
-//         x: WALL_X,
-//         y: 1355,
-//         rotate: Math.PI * 1.5
-//     },
-//     {
-//         x: WALL_X,
-//         y: 1524,
-//         rotate: Math.PI * 1.06
-//     },
-// ];
 
 export const WALLS_LIST = (() => {
     const list_left = [{
