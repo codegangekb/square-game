@@ -11,7 +11,8 @@ export class HouseDrawer extends Drawer {
         if (this.hide) {
             ctx.globalAlpha = 0.3;
         }
-        ctx.drawImage(this.assets.get('house.svg'), -img.width / 2,  -img.height / 2, img.width, img.height);
+        const img = this.assets.get('house.svg');
+        ctx.drawImage(img, -img.width / 2,  -img.height / 2, img.width, img.height);
         ctx.globalAlpha = 1;
     }
 }

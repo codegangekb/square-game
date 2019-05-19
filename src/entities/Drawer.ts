@@ -17,7 +17,6 @@ export abstract class Drawer {
             -camera.yView + this.transform.position.y
         );
         ctx.rotate(this.transform.angle);
-
         this.render(ctx);
 
         ctx.beginPath();

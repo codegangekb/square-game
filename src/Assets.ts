@@ -46,6 +46,11 @@ export class Assets {
         'yandex-eda.svg',
         'yandex-eda2.svg',
         'yandex-eda3.svg',
+        'devi-u-popa.svg',
+        'grupa2.svg',
+        'human.svg',
+        'we.svg',
+        'yandex-eda-tri-parnya.svg'
     ];
 
     get(name) {

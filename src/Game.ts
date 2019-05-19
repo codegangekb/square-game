@@ -7,7 +7,7 @@ import { Cosmonaut } from './Cosmonaut';
 import { Pizza } from './Pizza';
 import { Transform } from './entities/Transform';
 // @ts-ignore
-import {Collisions} from 'detect-collisions';
+import { Collisions } from 'detect-collisions';
 import { Wall } from './Wall';
 import { WALLS_LIST } from './objects/wall';
 import { TOWN_LIST } from './objects/town';
@@ -130,7 +130,7 @@ export class Game {
     }
 
     createRiotPolice() {
-        Array.from({length: 24}).forEach((_, i) => {
+        Array.from({ length: 24 }).forEach((_, i) => {
             const transform = new Transform(new Vector(2150, 760 + 40 * i + 1), Math.PI * 1.5);
             const cosmonaut = new Cosmonaut(transform, this);
             this.riotPolice.push(cosmonaut);
@@ -178,35 +178,35 @@ export class Game {
 
 
     createStatic() {
-        this.staticObjects.push(new StaticObject('public/salsa.svg', 89, 89, Math.PI * 1.5, new Vector(1550, 1250), this));
-        this.staticObjects.push(new StaticObject('public/dodo.svg', 50, 70, Math.PI * 0.4, new Vector(1350, 1420), this));
-        this.staticObjects.push(new StaticObject('public/sheremet.svg', 120, 120, 0, new Vector(1650, 1520), this));
-        this.staticObjects.push(new StaticObject('public/ten-gubernatora.svg', 70, 70, 0, new Vector(1380, 1660), this));
-        this.staticObjects.push(new StaticObject('public/maxim_menailo.svg', 90, 90, 0, new Vector(1350, 980), this));
-        this.staticObjects.push(new StaticObject('public/devi-u-popa.svg', 50, 90, Math.PI * 0.2, new Vector(1396, 1020), this));
-        this.staticObjects.push(new StaticObject('public/roizman.svg', 120, 120, 0, new Vector(1280, 1520), this));
-        this.staticObjects.push(new StaticObject('public/mer.svg', 160, 160, 0, new Vector(1860, 1780), this));
-        this.staticObjects.push(new StaticObject('public/rinat.svg', 70, 70, 0, new Vector(1750, 1230), this));
-        this.staticObjects.push(new StaticObject('public/tsarikov.svg', 55, 85, 0, new Vector(1780, 1130), this));
-        this.staticObjects.push(new StaticObject('public/naum-blik.svg', 55, 85, 0, new Vector(2040, 890), this));
-        this.staticObjects.push(new StaticObject('public/ded.svg', 180, 130, 0, new Vector(1895, 1450), this));
-        this.staticObjects.push(new StaticObject('public/deva-vesna.svg', 70, 90, 0, new Vector(1895, 1250), this));
-        this.staticObjects.push(new StaticObject('public/shahrin.svg', 90, 90, 0, new Vector(1350, 650), this));
-        this.staticObjects.push(new StaticObject('public/grupa2.svg', 150, 150, 0, new Vector(1350, 850), this));
-        this.staticObjects.push(new StaticObject('public/grupa2.svg', 150, 150, 0, new Vector(850, 980), this));
-        this.staticObjects.push(new StaticObject('public/grupa2.svg', 150, 150, 0, new Vector(1780, 1450), this));
-        this.staticObjects.push(new StaticObject('public/devi-u-popa.svg', 50, 90, Math.PI * 0.2, new Vector(950, 980), this));
+        this.staticObjects.push(new StaticObject('salsa.svg', 89, 89, Math.PI * 1.5, new Vector(1550, 1250), this));
+        this.staticObjects.push(new StaticObject('dodo.svg', 50, 70, Math.PI * 0.4, new Vector(1350, 1420), this));
+        this.staticObjects.push(new StaticObject('sheremet.svg', 120, 120, 0, new Vector(1650, 1520), this));
+        this.staticObjects.push(new StaticObject('ten-gubernatora.svg', 70, 70, 0, new Vector(1380, 1660), this));
+        this.staticObjects.push(new StaticObject('maxim_menailo.svg', 90, 90, 0, new Vector(1350, 980), this));
+        this.staticObjects.push(new StaticObject('devi-u-popa.svg', 50, 90, Math.PI * 0.2, new Vector(1396, 1020), this));
+        this.staticObjects.push(new StaticObject('roizman.svg', 120, 120, 0, new Vector(1280, 1520), this));
+        this.staticObjects.push(new StaticObject('mer.svg', 160, 160, 0, new Vector(1860, 1780), this));
+        this.staticObjects.push(new StaticObject('rinat.svg', 70, 70, 0, new Vector(1750, 1230), this));
+        this.staticObjects.push(new StaticObject('tsarikov.svg', 55, 85, 0, new Vector(1780, 1130), this));
+        this.staticObjects.push(new StaticObject('naum-blik.svg', 55, 85, 0, new Vector(2040, 890), this));
+        this.staticObjects.push(new StaticObject('ded.svg', 180, 130, 0, new Vector(1895, 1450), this));
+        this.staticObjects.push(new StaticObject('deva-vesna.svg', 70, 90, 0, new Vector(1895, 1250), this));
+        this.staticObjects.push(new StaticObject('shahrin.svg', 90, 90, 0, new Vector(1350, 650), this));
+        this.staticObjects.push(new StaticObject('grupa2.svg', 150, 150, 0, new Vector(1350, 850), this));
+        this.staticObjects.push(new StaticObject('grupa2.svg', 150, 150, 0, new Vector(850, 980), this));
+        this.staticObjects.push(new StaticObject('grupa2.svg', 150, 150, 0, new Vector(1780, 1450), this));
+        this.staticObjects.push(new StaticObject('devi-u-popa.svg', 50, 90, Math.PI * 0.2, new Vector(950, 980), this));
 
-        this.staticObjects.push(new StaticObject('public/titushki.svg', 400, 400, Math.PI * 1.5, new Vector(3550, 1300), this, true));
-        this.staticObjects.push(new StaticObject('public/we.svg', 190, 215, Math.PI * 1.9, new Vector(350, 1300), this, true));
-        this.staticObjects.push(new StaticObject('public/yandex-eda-tri-parnya.svg', 200, 85, Math.PI * 1.9, new Vector(550, 1300), this, true));
-        this.staticObjects.push(new StaticObject('public/yandex-eda-tri-parnya.svg', 200, 85, Math.PI * 1.9, new Vector(690, 820), this, true));
-        this.staticObjects.push(new StaticObject('public/dodo.svg', 50, 70, Math.PI * 0.4, new Vector(850, 720), this));
-        this.staticObjects.push(new StaticObject('public/grupa2.svg', 150, 150, Math.PI * 1.15, new Vector(940, 720), this));
-        this.staticObjects.push(new StaticObject('public/human.svg', 95, 95, 0, new Vector(940, 960), this));
-        this.staticObjects.push(new StaticObject('public/human.svg', 95, 95, 0, new Vector(1780, 1024), this));
-        this.staticObjects.push(new StaticObject('public/human.svg', 95, 95, 0, new Vector(1880, 1144), this));
-        this.staticObjects.push(new StaticObject('public/human.svg', 95, 95, 0, new Vector(750, 1300), this));
+        this.staticObjects.push(new StaticObject('titushki.svg', 400, 400, Math.PI * 1.5, new Vector(3550, 1300), this, true));
+        this.staticObjects.push(new StaticObject('we.svg', 190, 215, Math.PI * 1.9, new Vector(350, 1300), this));
+        this.staticObjects.push(new StaticObject('yandex-eda-tri-parnya.svg', 200, 85, Math.PI * 1.9, new Vector(550, 1300), this));
+        this.staticObjects.push(new StaticObject('yandex-eda-tri-parnya.svg', 200, 85, Math.PI * 1.9, new Vector(690, 820), this));
+        this.staticObjects.push(new StaticObject('dodo.svg', 50, 70, Math.PI * 0.4, new Vector(850, 720), this));
+        this.staticObjects.push(new StaticObject('grupa2.svg', 150, 150, Math.PI * 1.15, new Vector(940, 720), this));
+        this.staticObjects.push(new StaticObject('human.svg', 95, 95, 0, new Vector(940, 960), this));
+        this.staticObjects.push(new StaticObject('human.svg', 95, 95, 0, new Vector(1780, 1024), this));
+        this.staticObjects.push(new StaticObject('human.svg', 95, 95, 0, new Vector(1880, 1144), this));
+        this.staticObjects.push(new StaticObject('human.svg', 95, 95, 0, new Vector(750, 1300), this));
 
 
     }
