@@ -129,6 +129,12 @@ export class Game {
             const cosmonaut = new Cosmonaut(transform, this);
             this.riotPolice.push(cosmonaut);
         });
+
+        [{ x: 700, y: 800, rotate: Math.PI * 0.5 }].forEach(_ => {
+            const transform = new Transform(new Vector(_.x, _.y), _.rotate);
+            const cosmonaut = new Cosmonaut(transform, this);
+            this.riotPolice.push(cosmonaut);
+        });
     }
 
     eatPizza(pizza: Pizza) {
