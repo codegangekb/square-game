@@ -32,7 +32,7 @@ export class Assets {
         'salsa.svg',
         'shahrin.svg',
         'sheremet.svg',
-        'square.svg',
+        'square.png',
         'ten-gubernatora.svg',
         'titushki.svg',
         'town.svg',

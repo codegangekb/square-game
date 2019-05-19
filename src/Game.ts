@@ -56,7 +56,7 @@ export class Game {
     }
 
     renderSquare(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(this.assets.get('square.svg'), -this.camera.xView, -this.camera.yView, this.config.world.width, this.config.world.height);
+        ctx.drawImage(this.assets.get('square.png'), -this.camera.xView, -this.camera.yView, this.config.world.width, this.config.world.height);
     }
 
     render(ctx: CanvasRenderingContext2D) {
