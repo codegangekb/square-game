@@ -39,7 +39,7 @@ class WallDrawer extends Drawer {
             ctx.strokeStyle = 'red';
             ctx.beginPath();
 
-            this.collider.draw(ctx);
+            // this.collider.draw(ctx);
 
             ctx.stroke();
         }
