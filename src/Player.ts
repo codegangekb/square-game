@@ -93,8 +93,10 @@ export class Player extends GameObject {
         this.game.walls.forEach(wall => {
             const result = new Result();
             if (this.collider.collides(wall.collider, result)) {
+                console.log(result);
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
                 this.transform.setPosition(
+                    // new Vector(0,0)
                     this.transform.position.add(vector)
                 );
             }
