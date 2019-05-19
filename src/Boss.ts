@@ -17,7 +17,6 @@ class BossAnimation extends Animal {
     }
 
     step() {
-        console.log(this.value);
         this.transform.rotate(this.value);
     }
 }

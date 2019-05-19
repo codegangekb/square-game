@@ -127,7 +127,6 @@ export class Player extends GameObject {
 
         this.game.walls.forEach(wall => {
             const result = new Result();
-            // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {
                 if (wall.hp <= 0) {
                     return
@@ -142,7 +141,6 @@ export class Player extends GameObject {
 
         this.game.towns.forEach(wall => {
             const result = new Result();
-            // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
                 this.transform.setPosition(

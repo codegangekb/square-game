@@ -18,7 +18,6 @@ export abstract class Animation {
         this.stepValue = (this.target - this.startValue) / 60;
         this.timeout = this.stepValue / this.duration;
         this.currentTime = this.timeout;
-        console.log('tm', this.timeout, this.duration)
     }
 
     abstract step();
