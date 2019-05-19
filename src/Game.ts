@@ -13,6 +13,7 @@ import { WALLS_LIST } from './objects/wall';
 import { TOWN_LIST } from './objects/town';
 import { Town } from './Town';
 import { StaticObject } from './StaticObject';
+import { Boss } from './Boss';
 
 export class Game {
     player: Player;
@@ -23,7 +24,7 @@ export class Game {
     system;
     walls: Array<Wall>;
     staticObjects: StaticObject[] = [];
-
+    boss: Boss;
     constructor(public config: Config) {
         this.system = new Collisions();
         this.player = new Player(new Transform(new Vector(2350, 1650), 0), this);
@@ -40,6 +41,7 @@ export class Game {
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
         this.createWalls();
         this.createStatic();
+        this.boss = new Boss(new Transform(new Vector(3400, 1300), Math.PI * 1.5), this);
 
         this.walls.push(new Wall(new Transform(new Vector(400, 400), Math.PI * -0.02), this));
 
@@ -58,6 +60,7 @@ export class Game {
         this.renderSquare(ctx);
         // this.room.map.draw(ctx, this.camera.xView, this.camera.yView);
         this.player.render(ctx, this.camera);
+        this.boss.render(ctx, this.camera);
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
         this.renderWalls(ctx);
@@ -98,6 +101,7 @@ export class Game {
         this.system.update();
 
         this.player.update(dt);
+        this.boss.update(dt);
         this.updateRiotPolice(dt);
         this.camera.update();
     }
@@ -172,6 +176,11 @@ export class Game {
         this.staticObjects.push(new StaticObject('public/mer.svg', 160, 160, 0, new Vector(1860, 1780), this));
         this.staticObjects.push(new StaticObject('public/rinat.svg', 70, 70, 0, new Vector(1750, 1230), this));
         this.staticObjects.push(new StaticObject('public/tsarikov.svg', 55, 85, 0, new Vector(1780, 1130), this));
+        this.staticObjects.push(new StaticObject('public/naum-blik.svg', 55, 85, 0, new Vector(2040, 890), this));
+        this.staticObjects.push(new StaticObject('public/ded.svg', 180, 130, 0, new Vector(1895, 1450), this));
+        this.staticObjects.push(new StaticObject('public/deva-vesna.svg', 70, 90, 0, new Vector(1895, 1250), this));
+        this.staticObjects.push(new StaticObject('public/shahrin.svg', 90, 90, 0, new Vector(1350, 650), this));
+
     }
 
     renderStatic(ctx: CanvasRenderingContext2D) {

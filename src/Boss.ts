@@ -6,21 +6,21 @@ import { Pizza } from './Pizza';
 import { getRandomBeetwen } from './utils';
 import { Result } from 'detect-collisions';
 
-class CosmonautDrawer extends Drawer {
+class BossDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
         const cosmonautImg = new Image();
-        cosmonautImg.src = 'public/cosmonaut.svg';
+        cosmonautImg.src = 'public/boss.svg';
         ctx.drawImage(cosmonautImg, -30, -55, 62, 85);
     }
 }
 
-export class Cosmonaut extends GameObject {
+export class Boss extends GameObject {
     speed: number = getRandomBeetwen(70, 100);
     target: GameObject = null;
     _transform: Transform;
 
     constructor(transform: Transform, private game) {
-        super(transform, new CosmonautDrawer(transform),
+        super(transform, new BossDrawer(transform),
             game.system.createCircle(transform.position.x, transform.position.y, 15));
 
         this._transform = Transform.clone(transform);
