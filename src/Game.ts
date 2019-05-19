@@ -7,7 +7,7 @@ import { Cosmonaut } from './Cosmonaut';
 import { Pizza } from './Pizza';
 import { Transform } from './entities/Transform';
 // @ts-ignore
-import Collisions from 'collisions';
+import {Collisions} from 'detect-collisions';
 import { Wall } from './Wall';
 import { WALLS_LIST } from './objects/wall';
 import { TOWN_LIST } from './objects/town';
@@ -37,6 +37,8 @@ export class Game {
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
         this.createWalls();
+
+        this.walls.push(new Wall(new Transform(new Vector(400, 400), 0), this));
 
 
         // @ts-ignore

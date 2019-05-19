@@ -27,6 +27,7 @@
     "@types/lodash": "^4.14.129",
     "@types/uuid": "^3.4.4",
     "collisions": "^2.0.13",
+    "detect-collisions": "^2.4.3",
     "lodash": "^4.17.11",
     "rxjs": "^6.5.2",
     "uuid": "^3.3.2"

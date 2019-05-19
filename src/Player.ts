@@ -7,7 +7,7 @@ import { Vector } from './entities/Vector';
 import { Game } from './Game';
 import debounce from 'lodash/debounce';
 // @ts-ignore
-import { Result } from 'collisions';
+import { Result } from 'detect-collisions';
 
 
 class PlayerDrawer extends Drawer {

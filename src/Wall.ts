@@ -2,6 +2,7 @@ import { GameObject } from './entities/GameObject';
 import { Drawer } from './entities/Drawer';
 import { Transform } from './entities/Transform';
 import { WALL_HEIGHT, WALL_WIDTH } from './objects/constants';
+import { drawCircle } from './utils';
 
 class WallDrawer extends Drawer {
     collider = null;
@@ -15,19 +16,20 @@ class WallDrawer extends Drawer {
         wallImage.src = 'public/wall.svg';
         // ctx.drawImage(wallImage, -this.width, -this.height / 2, this.width, this.height,);
 
-        if (this.collider && this.camera) {
+        if (this.collider) {
             ctx.translate(
-                -this.transform.position.x,
+                -this.transform.position.x ,
                 -this.transform.position.y
             );
+
+            drawCircle(ctx, this.collider._x, this.collider._y, 5);
+
             ctx.strokeStyle = 'red';
             ctx.beginPath();
 
             this.collider.draw(ctx);
 
             ctx.stroke();
-
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
         }
     }
 }
@@ -35,8 +37,12 @@ class WallDrawer extends Drawer {
 export class Wall extends GameObject {
     constructor(public transform: Transform, private game) {
         super(transform, new WallDrawer(transform),
-            game.system.createPolygon(transform.position.x - WALL_WIDTH / 2, transform.position.y,
-                [[-WALL_HEIGHT / 2, -WALL_WIDTH / 2], [-WALL_HEIGHT / 2, WALL_WIDTH / 2], [WALL_HEIGHT / 2, WALL_WIDTH / 2], [WALL_HEIGHT / 2, -WALL_WIDTH / 2]], transform.angle));
+            game.system.createPolygon(transform.position.x, transform.position.y - WALL_HEIGHT / 2,
+                [
+                    [0, 0],
+                    [-WALL_WIDTH, 0],
+                    [-WALL_WIDTH, +WALL_HEIGHT]
+                ], 0));
 
         // @ts-ignore
         this.drawer.collider = this.collider;
