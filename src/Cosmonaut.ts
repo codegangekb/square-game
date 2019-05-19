@@ -56,6 +56,33 @@ export class Cosmonaut extends GameObject {
         this.collider.x = this.transform.position.x;
         this.collider.y = this.transform.position.y;
 
+        this.game.walls.forEach(wall => {
+            const result = new Result();
+            // console.log('collision....', wall.collider, result);
+            if (this.collider.collides(wall.collider, result)) {
+                if (wall.hp <= 0) {
+                    return
+                }
+                const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y + 5);
+                this.transform.setPosition(
+                    // new Vector(0,0)
+                    this.transform.position.add(vector)
+                );
+            }
+        });
+
+        this.game.towns.forEach(wall => {
+            const result = new Result();
+            // console.log('collision....', wall.collider, result);
+            if (this.collider.collides(wall.collider, result)) {
+                const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y + 5);
+                this.transform.setPosition(
+                    // new Vector(0,0)
+                    this.transform.position.add(vector)
+                );
+            }
+        });
+
         this.game.staticObjects.forEach(_static => {
             const result = new Result();
             if (this.collider.collides(_static.static.collider, result)) {
