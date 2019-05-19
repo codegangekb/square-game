@@ -10,8 +10,10 @@ const canvas = document.createElement('canvas');
 canvas.id = 'display';
 document.body.style.backgroundColor = "#303030";
 
+const controls = document.createElement('div');
+controls.classList.add('controls');
 const nipple = nipplejs.create({
-    zone: canvas,
+    zone: controls,
     color: 'blue',
     multitouch: true
 });
@@ -30,10 +32,11 @@ if (ctx == null) {
 }
 
 document.body.appendChild(canvas);
+document.body.appendChild(controls);
 
 const assets = Assets.getInstance();
 
-const game: Game = new Game(config);
+const game: Game = new Game(config, nipple);
 (async () => {
     await (function init() {
         return assets.load();

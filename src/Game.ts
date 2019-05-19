@@ -31,7 +31,7 @@ export class Game {
     house: House;
     assets: Assets;
 
-    constructor(public config: Config) {
+    constructor(public config: Config, public nipple) {
         this.system = new Collisions();
         this.player = new Player(new Transform(new Vector(2050, 1650), 0), this);
         this.room = {

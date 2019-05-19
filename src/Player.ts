@@ -19,7 +19,7 @@ export class Player extends GameObject {
     speed: number = 400;
     private damageCollider: any;
 
-    constructor(transform: Transform, private game: Game) {
+    constructor(transform: Transform, public game: Game) {
         super(transform, new PlayerDrawer(transform),
             game.system.createCircle(transform.position.x, transform.position.y, 25));
 
@@ -38,6 +38,8 @@ export class Player extends GameObject {
     };
 
     private pressedKeys: Record<string, boolean> = {};
+
+    private nippleDirection
 
 
     listen() {
@@ -67,6 +69,10 @@ export class Player extends GameObject {
                 this.game.createPizzaObject(this.transform.position);
             }
         });
+
+        this.game.nipple.on('move', (e, d) => {
+            console.log(e, d);
+        })
     }
 
     render(ctx, camera) {
