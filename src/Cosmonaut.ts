@@ -56,7 +56,6 @@ export class Cosmonaut extends GameObject {
 
         this.game.walls.forEach(wall => {
             const result = new Result();
-            // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {
                 if (wall.hp <= 0) {
                     return
@@ -71,7 +70,6 @@ export class Cosmonaut extends GameObject {
 
         this.game.towns.forEach(wall => {
             const result = new Result();
-            // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y + 5);
                 this.transform.setPosition(
@@ -84,7 +82,6 @@ export class Cosmonaut extends GameObject {
         this.game.staticObjects.forEach(_static => {
             const result = new Result();
             if (this.collider.collides(_static.static.collider, result)) {
-                console.log('COLLAPSE');
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
                 this.transform.setPosition(
                     this.transform.position.add(vector)

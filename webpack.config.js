@@ -26,7 +26,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
-        new HTMLPlugin(),
+        new HTMLPlugin({
+            meta: {viewport: 'width=device-width, initial-scale=0.5, shrink-to-fit=no'}
+        }),
         new webpack.WatchIgnorePlugin([
             path.join(__dirname, "node_modules")
         ])

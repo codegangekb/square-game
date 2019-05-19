@@ -30,6 +30,7 @@ export class Transform {
     }
 
     setPosition(vector: Vector) {
+        vector = new Vector(Math.floor(vector.x), Math.floor(vector.y));
         this._position = vector;
     }
 

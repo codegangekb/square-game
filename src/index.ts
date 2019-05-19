@@ -3,9 +3,18 @@ import { Game } from './Game';
 import { Config } from './config';
 import { Assets } from './Assets';
 
+// @ts-ignore
+import nipplejs from 'nipplejs';
+
 const canvas = document.createElement('canvas');
 canvas.id = 'display';
 document.body.style.backgroundColor = "#303030";
+
+const nipple = nipplejs.create({
+    zone: canvas,
+    color: 'blue',
+    multitouch: true
+});
 
 const config = new Config();
 
@@ -33,7 +42,8 @@ const game: Game = new Game(config);
     let time = performance.now();
 
     (function loop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const { xView, yView, wView, hView } = game.camera;
+        ctx.clearRect(xView, yView, wView, hView);
         const now = performance.now();
         const dt = (now - time) / 1000;
         time = now;

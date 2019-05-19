@@ -2,10 +2,9 @@ import { GameObject } from './entities/GameObject';
 import { Drawer } from './entities/Drawer';
 import { Transform } from './entities/Transform';
 import { Vector } from './entities/Vector';
-import { Pizza } from './Pizza';
-import { getRandomBeetwen } from './utils';
 import { Result } from 'detect-collisions';
 import { Animation as Animal } from './entities/Animation'
+
 class BossDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
         ctx.drawImage(this.assets.get('boss.svg'), -30, -55, 62, 85);
@@ -18,7 +17,6 @@ class BossAnimation extends Animal {
     }
 
     step() {
-        console.log(this.value);
         this.transform.rotate(this.value);
     }
 }

@@ -118,8 +118,6 @@ export const WALLS_LIST = (() => {
     }];
 
 
-    console.log(list_right);
-
     // for(let i = 0; i < 3; i++) {
     //     list_left.push(
     //         {
