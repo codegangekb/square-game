@@ -9,14 +9,16 @@ export abstract class Animation {
     private stepValue: number;
 
     protected constructor(
-        private value: number, private target: number,
-        private duration: number, private reverse: boolean = false
+        protected value: number, protected target: number,
+        protected duration: number, protected reverse: boolean = false
     ) {
         this.startValue = value;
         this.startTarget = target;
 
-        this.stepValue = this.target - this.startValue;
+        this.stepValue = (this.target - this.startValue) / 60;
         this.timeout = this.stepValue / this.duration;
+        this.currentTime = this.timeout;
+        console.log('tm', this.timeout, this.duration)
     }
 
     abstract step();
@@ -26,15 +28,15 @@ export abstract class Animation {
             return;
         }
 
+        console.log('ct', this.currentTime, dt);
         this.currentTime -= dt;
-
-        if (this.currentTime === 0){
+        if (this.currentTime <= 0){
             this.currentTime = this.timeout;
             this.value += this.value > this.target ? -this.stepValue : this.stepValue;
             this.step();
         }
 
-        if (this.value === this.target) {
+        if (this.value >= this.target) {
             if (this.reverse) {
                 this.target = this.target === this.startTarget ? this.startValue : this.startTarget;
             } else {

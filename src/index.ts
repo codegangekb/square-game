@@ -1,6 +1,7 @@
 import './style.css';
 import { Game } from './Game';
 import { Config } from './config';
+import { Assets } from './Assets';
 
 const canvas = document.createElement('canvas');
 canvas.id = 'display';
@@ -21,22 +22,26 @@ if (ctx == null) {
 
 document.body.appendChild(canvas);
 
+const assets = Assets.getInstance();
+
 const game: Game = new Game(config);
+(async () => {
+    await (function init() {
+        return assets.load();
+    })();
 
-(function init() {
+    let time = performance.now();
 
+    (function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const now = performance.now();
+        const dt = (now - time) / 1000;
+        time = now;
+
+        game.update(dt);
+        game.render(ctx);
+
+        requestAnimationFrame(loop);
+    })();
 })();
 
-let time = performance.now();
-
-(function loop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const now = performance.now();
-    const dt = (now - time) / 1000;
-    time = now;
-
-    game.update(dt);
-    game.render(ctx);
-
-    requestAnimationFrame(loop);
-})();

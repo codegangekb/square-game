@@ -12,9 +12,7 @@ class StaticDrawer extends Drawer {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        const townImage = new Image();
-        townImage.src = this.imgPath;
-        ctx.drawImage(townImage, -this.w / 2, -this.h / 2, this.w, this.h);
+        ctx.drawImage(this.assets.get(this.imgPath), -this.w / 2, -this.h / 2, this.w, this.h);
     }
 }
 
@@ -29,7 +27,7 @@ export class Static extends GameObject {
 
 export class StaticObject {
     static: Static;
-    constructor(imgPath: string, w: number, h: number, rotate: number, vector: Vector, game) {
+    constructor(imgPath: string, w: number, h: number, rotate: number, vector: Vector, game, public offColider = false) {
         const transform = new Transform(vector, rotate);
         this.static = new Static(transform, imgPath, w, h, game);
         // const cosmonaut = new Cosmonaut(transform, this);

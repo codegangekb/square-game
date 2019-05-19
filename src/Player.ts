@@ -11,9 +11,7 @@ import { Result } from 'detect-collisions';
 
 class PlayerDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
-        const playerImg = new Image();
-        playerImg.src = 'public/player.svg';
-        ctx.drawImage(playerImg, -18, -48, 52, 63);
+        ctx.drawImage(this.assets.get('player.svg'), -18, -48, 52, 63);
     }
 }
 
@@ -155,6 +153,7 @@ export class Player extends GameObject {
         });
 
         this.game.staticObjects.forEach(_static => {
+            if (_static.offColider) return;
             const result = new Result();
             if (this.collider.collides(_static.static.collider, result)) {
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);

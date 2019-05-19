@@ -14,37 +14,17 @@ class WallDrawer extends Drawer {
     width = WALL_WIDTH;
     height = WALL_HEIGHT;
 
+    map = {
+        5: 'wall.svg',
+        4: 'wall1.svg',
+        3: 'wall2.svg',
+        2: 'wall3.svg',
+        1: 'wall4.svg',
+    };
+
     render(ctx: CanvasRenderingContext2D) {
-        const wallImage = new Image();
-        let src = '';
-        switch (this.hp) {
-            case 5: {
-                src = 'public/wall.svg';
-                break;
-            }
-            case 4: {
-                src = 'public/wall1.svg';
-                break;
-            }
-            case 3: {
-                src = 'public/wall2.svg';
-                break;
-            }
-            case 2: {
-                src = 'public/wall3.svg';
-                break;
-            }
-            case 1: {
-                src = 'public/wall4.svg';
-                break;
-            }
-            default: {
-                src = 'public/wall5.svg';
-                break;
-            }
-        }
-        wallImage.src = src;
-        ctx.drawImage(wallImage, -this.width, -this.height / 2, this.width, this.height,);
+        const src = this.map[this.hp] ? this.map[this.hp] : 'wall5.svg';
+        ctx.drawImage(this.assets.get(src), -this.width, -this.height / 2, this.width, this.height,);
 
         if (this.collider) {
             ctx.rotate(-this.transform.angle);
@@ -59,7 +39,7 @@ class WallDrawer extends Drawer {
             ctx.strokeStyle = 'red';
             ctx.beginPath();
 
-            this.collider.draw(ctx);
+            // this.collider.draw(ctx);
 
             ctx.stroke();
         }
