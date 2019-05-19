@@ -23,7 +23,7 @@ export class Player extends GameObject {
 
     constructor(transform: Transform, private game: Game) {
         super(transform, new PlayerDrawer(transform),
-            game.system.createCircle(transform.position.x, transform.position.y, 15));
+            game.system.createCircle(transform.position.x, transform.position.y, 25));
 
         this.listen();
     }
@@ -91,6 +91,18 @@ export class Player extends GameObject {
         });
 
         this.game.walls.forEach(wall => {
+            const result = new Result();
+            // console.log('collision....', wall.collider, result);
+            if (this.collider.collides(wall.collider, result)) {
+                const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
+                this.transform.setPosition(
+                    // new Vector(0,0)
+                    this.transform.position.add(vector)
+                );
+            }
+        });
+
+        this.game.towns.forEach(wall => {
             const result = new Result();
             // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {

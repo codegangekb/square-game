@@ -23,6 +23,7 @@ export class Game {
     pizzas: Pizza[] = [];
     system;
     walls: Array<Wall>;
+    towns: Array<Town>;
     staticObjects: StaticObject[] = [];
     boss: Boss;
     constructor(public config: Config) {
@@ -40,11 +41,9 @@ export class Game {
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
         this.createWalls();
+        this.createTowns();
         this.createStatic();
         this.boss = new Boss(new Transform(new Vector(3400, 1300), Math.PI * 1.5), this);
-
-        this.walls.push(new Wall(new Transform(new Vector(400, 400), Math.PI * -0.02), this));
-
 
         // @ts-ignore
         window.game = this;
@@ -64,7 +63,7 @@ export class Game {
         this.renderRiotPolice(ctx);
         this.renderPizzas(ctx);
         this.renderWalls(ctx);
-        this.createTowns(ctx);
+        this.renderTowns(ctx);
         this.renderStatic(ctx);
     }
 
@@ -125,8 +124,8 @@ export class Game {
     }
 
     createRiotPolice() {
-        Array.from({length: 6}).forEach((_, i) => {
-            const transform = new Transform(new Vector(2150, 900 + 80 * i + 1), Math.PI * 1.5);
+        Array.from({length: 20}).forEach((_, i) => {
+            const transform = new Transform(new Vector(2150, 760 + 40 * i + 1), Math.PI * 1.5);
             const cosmonaut = new Cosmonaut(transform, this);
             this.riotPolice.push(cosmonaut);
         });
@@ -157,14 +156,20 @@ export class Game {
         this.walls.forEach(wall => wall.render(ctx, this.camera));
     }
 
-    createTowns(ctx: CanvasRenderingContext2D) {
-        TOWN_LIST.forEach((_town, i) => {
+    createTowns() {
+        this.towns = TOWN_LIST.map((_town, i) => {
             const vector = new Vector(_town.x, _town.y);
             const transform = new Transform(vector, _town.rotate);
-            const town = new Town(transform);
-            town.render(ctx, this.camera);
+            const town = new Town(transform, this);
+
+            return town;
         });
     }
+
+    renderTowns(ctx) {
+        this.towns.forEach(town => town.render(ctx, this.camera));
+    }
+
 
     createStatic() {
         this.staticObjects.push(new StaticObject('public/salsa.svg', 89, 89, Math.PI * 1.5, new Vector(1550, 1250), this));
