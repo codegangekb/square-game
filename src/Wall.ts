@@ -43,8 +43,6 @@ export class Wall extends GameObject {
                 [
                     [0, -WALL_HEIGHT / 2],
                     [-WALL_WIDTH, -WALL_HEIGHT / 2],
-                    // [-WALL_WIDTH, WALL_HEIGHT / 2],
-                    // [0, WALL_HEIGHT/ 2],
                 ], transform.angle));
 
         // @ts-ignore
