@@ -56,7 +56,7 @@ export class Game {
     }
 
     renderSquare(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(this.assets.get('square.svg'), -this.camera.xView, -this.camera.yView, this.config.world.width, this.config.world.height);
+        ctx.drawImage(this.assets.get('square.png'), -this.camera.xView, -this.camera.yView, this.config.world.width, this.config.world.height);
     }
 
     render(ctx: CanvasRenderingContext2D) {
@@ -132,6 +132,12 @@ export class Game {
     createRiotPolice() {
         Array.from({ length: 24 }).forEach((_, i) => {
             const transform = new Transform(new Vector(2150, 760 + 40 * i + 1), Math.PI * 1.5);
+            const cosmonaut = new Cosmonaut(transform, this);
+            this.riotPolice.push(cosmonaut);
+        });
+
+        [{ x: 700, y: 800, rotate: Math.PI * 0.5 }].forEach(_ => {
+            const transform = new Transform(new Vector(_.x, _.y), _.rotate);
             const cosmonaut = new Cosmonaut(transform, this);
             this.riotPolice.push(cosmonaut);
         });

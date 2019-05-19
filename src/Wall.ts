@@ -25,24 +25,6 @@ class WallDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
         const src = this.map[this.hp] ? this.map[this.hp] : 'wall5.svg';
         ctx.drawImage(this.assets.get(src), -this.width, -this.height / 2, this.width, this.height,);
-
-        if (this.collider) {
-            ctx.rotate(-this.transform.angle);
-            ctx.translate(
-                -this.transform.position.x,
-                -this.transform.position.y
-            );
-
-
-            drawCircle(ctx, this.collider._x, this.collider._y, 5);
-
-            ctx.strokeStyle = 'red';
-            ctx.beginPath();
-
-            // this.collider.draw(ctx);
-
-            ctx.stroke();
-        }
     }
 }
 
