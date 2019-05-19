@@ -12,6 +12,7 @@ import { Wall } from './Wall';
 import { WALLS_LIST } from './objects/wall';
 import { TOWN_LIST } from './objects/town';
 import { Town } from './Town';
+import { StaticObject } from './StaticObject';
 
 export class Game {
     player: Player;
@@ -21,10 +22,11 @@ export class Game {
     pizzas: Pizza[] = [];
     system;
     walls: Array<Wall>;
+    staticObjects: StaticObject[] = [];
 
     constructor(public config: Config) {
         this.system = new Collisions();
-        this.player = new Player(new Transform(new Vector(4400, 950), 0), this);
+        this.player = new Player(new Transform(new Vector(2350, 1650), 0), this);
         this.room = {
             width: config.world.width,
             height: config.world.height,
@@ -37,6 +39,7 @@ export class Game {
         this.camera = new Camera(0, 0, this.config.game.width, this.config.game.height, this.room.width, this.room.height);
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
         this.createWalls();
+        this.createStatic();
 
         this.walls.push(new Wall(new Transform(new Vector(400, 400), Math.PI * -0.02), this));
 
@@ -59,6 +62,7 @@ export class Game {
         this.renderPizzas(ctx);
         this.renderWalls(ctx);
         this.createTowns(ctx);
+        this.renderStatic(ctx);
     }
 
     searchIntersection() {
@@ -117,7 +121,7 @@ export class Game {
     }
 
     createRiotPolice() {
-        Array.from({length: 1}).forEach((_, i) => {
+        Array.from({length: 6}).forEach((_, i) => {
             const transform = new Transform(new Vector(2150, 900 + 80 * i + 1), Math.PI * 1.5);
             const cosmonaut = new Cosmonaut(transform, this);
             this.riotPolice.push(cosmonaut);
@@ -156,5 +160,23 @@ export class Game {
             const town = new Town(transform);
             town.render(ctx, this.camera);
         });
+    }
+
+    createStatic() {
+        this.staticObjects.push(new StaticObject('public/salsa.svg', 89, 89, Math.PI * 1.5, new Vector(1550, 1250), this));
+        this.staticObjects.push(new StaticObject('public/dodo.svg', 50, 70, Math.PI * 0.4, new Vector(1350, 1420), this));
+        this.staticObjects.push(new StaticObject('public/sheremet.svg', 120, 120, 0, new Vector(1650, 1520), this));
+        this.staticObjects.push(new StaticObject('public/ten-gubernatora.svg', 70, 70, 0, new Vector(1380, 1660), this));
+        this.staticObjects.push(new StaticObject('public/maxim_menailo.svg', 90, 90, 0, new Vector(1350, 980), this));
+        this.staticObjects.push(new StaticObject('public/roizman.svg', 120, 120, 0, new Vector(1280, 1520), this));
+        this.staticObjects.push(new StaticObject('public/mer.svg', 160, 160, 0, new Vector(1860, 1780), this));
+        this.staticObjects.push(new StaticObject('public/rinat.svg', 70, 70, 0, new Vector(1750, 1230), this));
+        this.staticObjects.push(new StaticObject('public/tsarikov.svg', 55, 85, 0, new Vector(1780, 1130), this));
+    }
+
+    renderStatic(ctx: CanvasRenderingContext2D) {
+
+
+        this.staticObjects.forEach(_ => _.render(ctx, this.camera));
     }
 }

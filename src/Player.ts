@@ -100,7 +100,18 @@ export class Player extends GameObject {
                     this.transform.position.add(vector)
                 );
             }
-        })
+        });
+
+        this.game.staticObjects.forEach(_static => {
+           const result = new Result();
+           if (this.collider.collides(_static.static, result)) {
+               const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
+               this.transform.setPosition(
+                   // new Vector(0,0)
+                   this.transform.position.add(vector)
+               );
+           }
+        });
     }
 }
 
