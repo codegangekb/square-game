@@ -108,13 +108,13 @@ export const WALLS_LIST = (() => {
 
     const list_right = [{
         x: list_bottom_third[list_bottom_third.length - 1].x + 96,
-        y: list_bottom_third[list_bottom_third.length - 1].y - 220,
-        rotate: Math.PI * 1.5
+        y: list_bottom_third[list_bottom_third.length - 1].y - 100,
+        rotate: Math.PI * -1.5
     },
     {
         x: list_bottom_third[list_bottom_third.length - 1].x + 96,
-        y: list_bottom_third[list_bottom_third.length - 1].y - 333,
-        rotate: Math.PI * 1.5
+        y: list_bottom_third[list_bottom_third.length - 1].y - 215,
+        rotate: Math.PI * -1.5
     }];
 
 

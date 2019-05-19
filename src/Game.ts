@@ -38,7 +38,7 @@ export class Game {
         this.camera.follow(this.player.transform, this.config.game.width / 2, this.config.game.height / 2);
         this.createWalls();
 
-        this.walls.push(new Wall(new Transform(new Vector(400, 400), 0), this));
+        this.walls.push(new Wall(new Transform(new Vector(400, 400), Math.PI * -0.02), this));
 
 
         // @ts-ignore
@@ -126,7 +126,6 @@ export class Game {
 
     eatPizza(pizza: Pizza) {
         const index = this.pizzas.findIndex(_pizza => _pizza.id === pizza.id);
-        console.log(index);
         if (index !== -1) {
             this.pizzas.splice(index, 1);
         }

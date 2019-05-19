@@ -14,13 +14,15 @@ class WallDrawer extends Drawer {
     render(ctx: CanvasRenderingContext2D) {
         const wallImage = new Image();
         wallImage.src = 'public/wall.svg';
-        // ctx.drawImage(wallImage, -this.width, -this.height / 2, this.width, this.height,);
+        ctx.drawImage(wallImage, -this.width, -this.height / 2, this.width, this.height,);
 
         if (this.collider) {
+            ctx.rotate(-this.transform.angle);
             ctx.translate(
-                -this.transform.position.x ,
+                -this.transform.position.x,
                 -this.transform.position.y
             );
+
 
             drawCircle(ctx, this.collider._x, this.collider._y, 5);
 
@@ -37,12 +39,13 @@ class WallDrawer extends Drawer {
 export class Wall extends GameObject {
     constructor(public transform: Transform, private game) {
         super(transform, new WallDrawer(transform),
-            game.system.createPolygon(transform.position.x, transform.position.y - WALL_HEIGHT / 2,
+            game.system.createPolygon(transform.position.x, transform.position.y,
                 [
-                    [0, 0],
-                    [-WALL_WIDTH, 0],
-                    [-WALL_WIDTH, +WALL_HEIGHT]
-                ], 0));
+                    [0, -WALL_HEIGHT / 2],
+                    [-WALL_WIDTH, -WALL_HEIGHT / 2],
+                    // [-WALL_WIDTH, WALL_HEIGHT / 2],
+                    // [0, WALL_HEIGHT/ 2],
+                ], transform.angle));
 
         // @ts-ignore
         this.drawer.collider = this.collider;
