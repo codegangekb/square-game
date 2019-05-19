@@ -39,7 +39,6 @@ export class Player extends GameObject {
 
     private pressedKeys: Record<string, boolean> = {};
 
-    private nippleDirection
 
 
     listen() {
@@ -69,10 +68,6 @@ export class Player extends GameObject {
                 this.game.createPizzaObject(this.transform.position);
             }
         });
-
-        this.game.nipple.on('move', (e, d) => {
-            console.log(e, d);
-        })
     }
 
     render(ctx, camera) {
