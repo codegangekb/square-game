@@ -23,7 +23,7 @@ export class Static extends GameObject {
         super(transform, new StaticDrawer(transform, imgPath, w, h), game.system.createCircle(transform.position.x, transform.position.y, (w > h ? w : h)/2));
         this.collider.x = this.transform.position.x;
         this.collider.y = this.transform.position.y;
-        console.log(this.collider.x, this.collider.y)
+        console.log(this.collider.x, this.collider.y);
     }
 }
 
