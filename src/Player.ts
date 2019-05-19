@@ -5,7 +5,6 @@ import { Tuple } from './utils';
 import { Camera } from './entities/Camera';
 import { Vector } from './entities/Vector';
 import { Game } from './Game';
-import debounce from 'lodash/debounce';
 // @ts-ignore
 import { Result } from 'detect-collisions';
 
@@ -20,10 +19,15 @@ class PlayerDrawer extends Drawer {
 
 export class Player extends GameObject {
     speed: number = 400;
+    private damageCollider: any;
 
     constructor(transform: Transform, private game: Game) {
         super(transform, new PlayerDrawer(transform),
             game.system.createCircle(transform.position.x, transform.position.y, 25));
+
+        this.damageCollider = game.system.createPolygon(transform.position.x, transform.position.y, [
+            [-10, -30], [-10, 30], [0, 0]
+        ], transform.angle);
 
         this.listen();
     }
@@ -54,8 +58,37 @@ export class Player extends GameObject {
         });
 
         document.addEventListener('click', (e: MouseEvent) => {
-           this.game.createPizzaObject(this.transform.position);
+            const wall = this.game.walls.find(wall => {
+                const result = new Result();
+                return this.damageCollider.collides(wall.collider, result);
+            });
+
+            if (wall) {
+                wall.takeDamage();
+            } else {
+                this.game.createPizzaObject(this.transform.position);
+            }
         });
+    }
+
+    render(ctx, camera) {
+        super.render(ctx, camera);
+
+        if (this.damageCollider) {
+            ctx.rotate(-this.transform.angle);
+            ctx.translate(
+                -this.transform.position.x,
+                -this.transform.position.y
+            );
+
+            ctx.strokeStyle = 'red';
+            ctx.beginPath();
+            this.damageCollider.draw(ctx);
+            ctx.stroke();
+
+
+            ctx.setTransform(1, 0, 0, 1, 0, 0)
+        }
     }
 
     get direction(): Vector {
@@ -80,6 +113,10 @@ export class Player extends GameObject {
         this.collider.x = this.transform.position.x;
         this.collider.y = this.transform.position.y;
 
+        this.damageCollider.x = this.transform.position.x;
+        this.damageCollider.y = this.transform.position.y;
+        this.damageCollider.angle = this.transform.angle;
+
         this.game.riotPolice.forEach(police => {
             const result = new Result();
             if (this.collider.collides(police.collider, result)) {
@@ -94,6 +131,9 @@ export class Player extends GameObject {
             const result = new Result();
             // console.log('collision....', wall.collider, result);
             if (this.collider.collides(wall.collider, result)) {
+                if (wall.hp <= 0) {
+                    return
+                }
                 const vector = new Vector(-result.overlap * result.overlap_x, -result.overlap * result.overlap_y);
                 this.transform.setPosition(
                     // new Vector(0,0)
