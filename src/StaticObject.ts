@@ -20,9 +20,10 @@ class StaticDrawer extends Drawer {
 
 export class Static extends GameObject {
     constructor(public transform: Transform, imgPath: string, w: number, h: number, game) {
-        super(transform, new StaticDrawer(transform, imgPath, w, h), game.system.createCircle(transform.position.x, transform.position.y, 15));
+        super(transform, new StaticDrawer(transform, imgPath, w, h), game.system.createCircle(transform.position.x, transform.position.y, (w > h ? w : h)/2));
         this.collider.x = this.transform.position.x;
         this.collider.y = this.transform.position.y;
+        console.log(this.collider.x, this.collider.y)
     }
 }
 
